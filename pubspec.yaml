@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flame: ^1.14.0
+  flame_tiled: ^1.18.3
 
 dev_dependencies:
   flutter_test:
