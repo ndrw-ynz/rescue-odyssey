@@ -2,24 +2,36 @@ import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
+
 import 'package:rescue_odyssey/entities/player.dart';
+import 'package:rescue_odyssey/worlds/prelude_world.dart';
 
 /// The base class of the game.
 ///
 /// `RescueOdysseyGame` contains all of the components of the game.
-class RescueOdysseyGame extends FlameGame{
+class RescueOdysseyGame extends FlameGame {
 
   /// The component for the Joystick HUD displayed on the viewport of the camera.
   late final JoystickComponent joystick;
   // Creates Player class called player
   final player = Player();
 
+  late final PreludeWorld preludeWorld;
+
   @override
   Future<void> onLoad() async {
     // Load all images into cache
     await images.loadAllImages();
 
+    // Create preludeWorld
+    preludeWorld = PreludeWorld(player: player);
+
+    // Switch world
+    world = preludeWorld;
+    world.add(player);
+
     createJoystick();
+    camera.follow(player);
 
   }
 
@@ -38,7 +50,6 @@ class RescueOdysseyGame extends FlameGame{
       background: CircleComponent(radius: 90, paint: backgroundPaint),
       margin: const EdgeInsets.only(left: 40, bottom: 40),
     );
-    world.add(player);
     // player = JoystickPlayer(joystick);
     camera.viewport.add(joystick);
   }
@@ -73,9 +84,6 @@ class RescueOdysseyGame extends FlameGame{
       default:
         player.playerDirection = PlayerDirection.none;
         break;
-
     }
   }
-
-
 }
