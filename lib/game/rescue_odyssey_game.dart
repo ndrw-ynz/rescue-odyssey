@@ -1,3 +1,4 @@
+import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
@@ -5,18 +6,28 @@ import 'package:flutter/material.dart';
 
 import 'package:rescue_odyssey/entities/player.dart';
 import 'package:rescue_odyssey/worlds/prelude_world.dart';
+import 'package:rescue_odyssey/worlds/prelude_world_manager.dart';
+
 
 /// The base class of the game.
 ///
 /// `RescueOdysseyGame` contains all of the components of the game.
 class RescueOdysseyGame extends FlameGame {
 
+  @override
+  Color backgroundColor() => const Color(0xFF211F30);
+
   /// The component for the Joystick HUD displayed on the viewport of the camera.
   late final JoystickComponent joystick;
+
+  late final CameraComponent cam;
+
   // Creates Player class called player
-  final player = Player();
+  late final Player player;
 
   late final PreludeWorld preludeWorld;
+
+  final PreludeWorldManager preludeWorldManager = PreludeWorldManager();
 
   @override
   Future<void> onLoad() async {
@@ -24,15 +35,25 @@ class RescueOdysseyGame extends FlameGame {
     await images.loadAllImages();
 
     // Create preludeWorld
-    preludeWorld = PreludeWorld(player: player);
+    player = Player();
+    preludeWorldManager.loadWorlds(player);
+    world = preludeWorldManager.preludeWoodenBoardingCottage
+    ..debugMode = true;
 
-    // Switch world
-    world = preludeWorld;
-    world.add(player);
-
+    // dimension should be fixed
+    // display of worlds should be fixed (no scaling)
+    // camera = CameraComponent.withFixedResolution(
+    //   height: 320,
+    //   width: 620,
+    //   world: world
+    // );
     createJoystick();
-    camera.follow(player);
 
+    // cant do this w follow
+    //camera.moveTo(Vector2(320 * 0.5, camera.viewport.virtualSize.y * 0.5));
+
+    camera.follow(player);
+    // camera.setBounds(Rectangle.fromLTWH(0, 0, 320, 320));
   }
 
   @override
@@ -50,7 +71,6 @@ class RescueOdysseyGame extends FlameGame {
       background: CircleComponent(radius: 90, paint: backgroundPaint),
       margin: const EdgeInsets.only(left: 40, bottom: 40),
     );
-    // player = JoystickPlayer(joystick);
     camera.viewport.add(joystick);
   }
 

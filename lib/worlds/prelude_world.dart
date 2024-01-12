@@ -3,10 +3,11 @@ import 'package:flame/game.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 
 import 'package:rescue_odyssey/entities/player.dart';
+import 'package:rescue_odyssey/game/rescue_odyssey_game.dart';
 
 /// A world containing the necessary components for the
 /// Prelude chapter of the game.
-class PreludeWorld extends World {
+class PreludeWorld extends World with HasGameRef<RescueOdysseyGame> {
 
   /// The component for the wooden boarding cottage map in prelude.
   late TiledComponent preludeWoodenBoardingCottage;
@@ -21,7 +22,8 @@ class PreludeWorld extends World {
   Future<void> onLoad() async {
     // Load TiledComponents
     preludeWoodenBoardingCottage = await TiledComponent.load('prelude_waldorf_woodenboardingcottage.tmx', Vector2.all(32));
-    // preludeCottageHalls = await TiledComponent.load('prelude_waldorf_cottage_halls.tmx', Vector2.all(32));
+
+    preludeCottageHalls = await TiledComponent.load('prelude_waldorf_cottage_halls.tmx', Vector2.all(32));
 
     // Add as a component.
     add(preludeWoodenBoardingCottage);
@@ -31,9 +33,9 @@ class PreludeWorld extends World {
     for (final spawnPoint in spawnPointLayer!.objects) {
       switch (spawnPoint.class_) {
         case 'Player':
-        // create Player here
-          player.position = Vector2(spawnPoint.x, spawnPoint.y);
-          add(player);
+          // create Player here
+          // add(player);
+          //player.position = Vector2(spawnPoint.x, spawnPoint.y);
           break;
         default:
           break;
