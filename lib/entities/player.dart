@@ -119,7 +119,7 @@ class Player extends SpriteAnimationGroupComponent
         break;
 
       case PlayerDirection.down:
-      // Set current player state
+        // Set current player state
         current = PlayerState.runningFront;
         currentPosition = 'Front';
 
@@ -127,7 +127,7 @@ class Player extends SpriteAnimationGroupComponent
         dirY += movementSpeed;
         break;
       case PlayerDirection.up:
-      // Set current player state
+        // Set current player state
         current = PlayerState.runningBack;
         currentPosition = 'Back';
 
