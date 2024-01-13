@@ -2,10 +2,10 @@ import 'package:flame/components.dart';
 import 'dart:async';
 import 'package:rescue_odyssey/game/rescue_odyssey_game.dart';
 
-// Created player states using assets
-enum PlayerState {idle, runningBack, runningFront, runningLeft, runningRight}
+// Created player states
+enum PlayerState {idle, idleFaceBack, idleFaceFront, idleFaceLeft, idleFaceRight, runningBack, runningFront, runningLeft, runningRight}
 
-// Created all possible directions for movement of the player
+// Created all directions for movement of the player
 enum PlayerDirection {none, down, up, left, right, downLeft, downRight, upLeft, upRight}
 
 /// The Player Class
@@ -14,15 +14,29 @@ enum PlayerDirection {none, down, up, left, right, downLeft, downRight, upLeft, 
 class Player extends SpriteAnimationGroupComponent
     with HasGameRef<RescueOdysseyGame>{
 
+  /// Player idle states
   late final SpriteAnimation idleAnimation;
+  late final SpriteAnimation backIdleAnimation;
+  late final SpriteAnimation frontIdleAnimation;
+  late final SpriteAnimation leftIdleAnimation;
+  late final SpriteAnimation rightIdleAnimation;
+
+  /// Player walking animations
   late final SpriteAnimation backWalkAnimation;
   late final SpriteAnimation frontWalkAnimation;
   late final SpriteAnimation leftWalkAnimation;
   late final SpriteAnimation rightWalkAnimation;
+
+  /// Last current position, used for idle states.
+  late var currentPosition = 'Front';
+
+  /// States how fast the animation moves.
   final double stepTime = 0.20;
 
-  PlayerDirection playerDirection = PlayerDirection.none;
+  /// Player movement speed
   double movementSpeed = 150;
+
+  PlayerDirection playerDirection = PlayerDirection.none;
   Vector2 velocity = Vector2.zero();
 
   @override
@@ -41,6 +55,10 @@ class Player extends SpriteAnimationGroupComponent
   /// A method that loads all animations for character movement
   void _loadAllAnimations() {
     idleAnimation = _spriteAnimation('arturo_bird_front_walk_anim.png', 1);
+    backIdleAnimation = _spriteAnimation('arturo_bird_back_walk_anim.png', 1);
+    frontIdleAnimation = _spriteAnimation('arturo_bird_front_walk_anim.png', 1);
+    leftIdleAnimation = _spriteAnimation('arturo_bird_left_walk_anim.png', 1);
+    rightIdleAnimation = _spriteAnimation('arturo_bird_right_walk_anim.png', 1);
     backWalkAnimation = _spriteAnimation('arturo_bird_back_walk_anim.png', 4);
     frontWalkAnimation = _spriteAnimation('arturo_bird_front_walk_anim.png', 4);
     leftWalkAnimation = _spriteAnimation('arturo_bird_left_walk_anim.png', 4);
@@ -49,10 +67,15 @@ class Player extends SpriteAnimationGroupComponent
     //List of all animations
     animations = {
       PlayerState.idle : idleAnimation,
+      PlayerState.idleFaceBack : backIdleAnimation,
+      PlayerState.idleFaceFront : frontIdleAnimation,
+      PlayerState.idleFaceLeft : leftIdleAnimation,
+      PlayerState.idleFaceRight : rightIdleAnimation,
       PlayerState.runningBack : backWalkAnimation,
       PlayerState.runningFront : frontWalkAnimation,
       PlayerState.runningLeft : leftWalkAnimation,
       PlayerState.runningRight : rightWalkAnimation,
+
     };
     current = PlayerState.idle;
   }
@@ -76,47 +99,81 @@ class Player extends SpriteAnimationGroupComponent
     double dirY = 0.0;
 
     switch (playerDirection) {
+
+      // If player stopped, check the last current faced position and set the correct idle image
       case PlayerDirection.none:
-        current = PlayerState.idle;
+        switch(currentPosition){
+          case 'Back':
+            current = PlayerState.idleFaceBack;
+            break;
+          case 'Front':
+            current = PlayerState.idleFaceFront;
+            break;
+          case 'Left':
+            current = PlayerState.idleFaceLeft;
+            break;
+          case 'Right':
+            current = PlayerState.idleFaceRight;
+            break;
+        }
         break;
+
       case PlayerDirection.down:
-        // Set current player state
+      // Set current player state
         current = PlayerState.runningFront;
+        currentPosition = 'Front';
+
         // Add vector Y with the movement speed to change vector Y position upward
         dirY += movementSpeed;
         break;
       case PlayerDirection.up:
-        // Set current player state
+      // Set current player state
         current = PlayerState.runningBack;
+        currentPosition = 'Back';
+
         // Subtract vector Y with the movement speed to change vector Y position downward
         dirY -= movementSpeed;
         break;
       case PlayerDirection.left:
         current = PlayerState.runningLeft;
+        currentPosition = 'Left';
+
         // Similar with process above done with vector Y
         dirX -= movementSpeed;
         break;
       case PlayerDirection.right:
         current = PlayerState.runningRight;
+        currentPosition = 'Right';
+
         dirX += movementSpeed;
         break;
       case PlayerDirection.downLeft:
         current = PlayerState.runningFront;
+        currentPosition = 'Front';
+
         dirX -= movementSpeed;
         dirY += movementSpeed;
         break;
       case PlayerDirection.downRight:
         current = PlayerState.runningFront;
+        currentPosition = 'Front';
+
+
         dirX += movementSpeed;
         dirY += movementSpeed;
         break;
       case PlayerDirection.upLeft:
         current = PlayerState.runningBack;
+        currentPosition = 'Back';
+
+
         dirX -= movementSpeed;
         dirY -= movementSpeed;
         break;
       case PlayerDirection.upRight:
         current = PlayerState.runningBack;
+        currentPosition = 'Back';
+
         dirX += movementSpeed;
         dirY -= movementSpeed;
         break;
@@ -128,6 +185,5 @@ class Player extends SpriteAnimationGroupComponent
     // Sets the position of the player
     position += velocity * dt;
   }
-
 
 }
