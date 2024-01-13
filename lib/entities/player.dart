@@ -3,32 +3,48 @@ import 'package:flame/components.dart';
 import 'dart:async';
 import 'package:rescue_odyssey/game/rescue_odyssey_game.dart';
 
-// Created player states using assets
+/// The [PlayerState] enum containing the possible asset state of the Player.
 enum PlayerState {idle, runningBack, runningFront, runningLeft, runningRight}
 
-// Created all possible directions for movement of the player
+/// The [PlayerDirection] enum containing the possible direction states of the Player.
 enum PlayerDirection {none, down, up, left, right, downLeft, downRight, upLeft, upRight}
 
-/// The Player Class
 ///
-/// Contains animations, and movements of the player
+///  [Player] contains the attributes and properties of the player of the game.
+///
+///  This class extends [SpriteAnimationGroupComponent] and uses [HasGameRef]
+///  and [CollisionCallbacks].
+///
 class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdysseyGame>, CollisionCallbacks{
-
+  /// The idle animation asset of [Player].
   late final SpriteAnimation idleAnimation;
+  /// The back walking animation asset of [Player].
   late final SpriteAnimation backWalkAnimation;
+  /// The front walking animation asset of [Player].
   late final SpriteAnimation frontWalkAnimation;
+  /// The left walking animation asset of [Player].
   late final SpriteAnimation leftWalkAnimation;
+  /// The right walking animation asset of [Player].
   late final SpriteAnimation rightWalkAnimation;
-  final double stepTime = 0.20;
 
+  final double stepTime = 0.20;
+  /// The size dimension of the [Player].
   Vector2 playerSize = Vector2(24, 48);
+  /// The state of the [PlayerDirection] of the [Player].
   PlayerDirection playerDirection = PlayerDirection.none;
+  /// The speed of [Player] for walking.
   double movementSpeed = 150;
+  /// Contains the velocity value for walking.
   Vector2 velocity = Vector2.zero();
 
+  // The Hitboxes for the sides of the Player.
+  /// The hitbox of the left side of the [Player].
   late final RectangleHitbox leftHitbox;
+  /// The hitbox of the right side of the [Player].
   late final RectangleHitbox rightHitbox;
+  /// The hitbox of the top side of the [Player].
   late final RectangleHitbox topHitbox;
+  /// The hitbox of the bottom side of the [Player].
   late final RectangleHitbox bottomHitbox;
 
   @override
@@ -44,8 +60,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
     super.update(dt);
   }
 
-  // \/ Methods \/
-  /// A method that initializes the hitboxes of the 4 sides of the Player.
+  ///.
+  /// [_initHitboxes] is a private method that initializes the hitboxes of the 4 sides of [Player].
+  ///
   void _initHitboxes() {
     leftHitbox = RectangleHitbox(
       position: Vector2(1, playerSize.y * 0.8),
@@ -78,7 +95,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
   }
 
 
-  /// A method that loads all animations for character movement
+  ///
+  /// [_loadAllAnimations] is a private method that loads all animation assets
+  /// of [Player] for character movement.
+  ///
   void _loadAllAnimations() {
     idleAnimation = _spriteAnimation('arturo_bird_front_walk_anim.png', 1);
     backWalkAnimation = _spriteAnimation('arturo_bird_back_walk_anim.png', 4);
@@ -97,7 +117,9 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
     current = PlayerState.idle;
   }
 
-  /// A method for creating player animations.
+  ///
+  /// [_spriteAnimation] is a private method for creating player animations.
+  ///
   SpriteAnimation _spriteAnimation(String state, int amount) {
     return SpriteAnimation.fromFrameData(
       game.images.fromCache('characters/arturo_bird/$state'),
@@ -109,7 +131,10 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
     );
   }
 
-  /// A method for updating player movement when joystick is moved or key is pressed.
+  ///
+  /// [_updatePlayerMovement] is a private method for updating player movement
+  /// when joystick is moved or key is pressed.
+  ///
   void _updatePlayerMovement(double dt) {
     // Direction X and Direction Y
     double dirX = 0.0;
