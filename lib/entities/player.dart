@@ -1,3 +1,4 @@
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'dart:async';
 import 'package:rescue_odyssey/game/rescue_odyssey_game.dart';
@@ -11,8 +12,7 @@ enum PlayerDirection {none, down, up, left, right, downLeft, downRight, upLeft, 
 /// The Player Class
 ///
 /// Contains animations, and movements of the player
-class Player extends SpriteAnimationGroupComponent
-    with HasGameRef<RescueOdysseyGame>{
+class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdysseyGame>, CollisionCallbacks{
 
   late final SpriteAnimation idleAnimation;
   late final SpriteAnimation backWalkAnimation;
@@ -21,13 +21,20 @@ class Player extends SpriteAnimationGroupComponent
   late final SpriteAnimation rightWalkAnimation;
   final double stepTime = 0.20;
 
+  Vector2 playerSize = Vector2(24, 48);
   PlayerDirection playerDirection = PlayerDirection.none;
   double movementSpeed = 150;
   Vector2 velocity = Vector2.zero();
 
+  late final RectangleHitbox leftHitbox;
+  late final RectangleHitbox rightHitbox;
+  late final RectangleHitbox topHitbox;
+  late final RectangleHitbox bottomHitbox;
+
   @override
   FutureOr<void> onLoad() {
     _loadAllAnimations();
+    _initHitboxes();
     return super.onLoad();
   }
 
@@ -38,6 +45,39 @@ class Player extends SpriteAnimationGroupComponent
   }
 
   // \/ Methods \/
+  /// A method that initializes the hitboxes of the 4 sides of the Player.
+  void _initHitboxes() {
+    leftHitbox = RectangleHitbox(
+      position: Vector2(1, playerSize.y * 0.8),
+      size: Vector2(2, playerSize.x*0.3),
+      collisionType: CollisionType.active
+    );
+
+    rightHitbox = RectangleHitbox(
+      position: Vector2(playerSize.x-3, playerSize.y * 0.8),
+      size: Vector2(2, playerSize.x*0.3),
+      collisionType: CollisionType.active
+    );
+
+    topHitbox = RectangleHitbox(
+      position: Vector2(5, playerSize.y * 0.8),
+      size: Vector2(playerSize.x*0.6, 2),
+      collisionType: CollisionType.active
+    );
+
+    bottomHitbox = RectangleHitbox(
+      position: Vector2(5, playerSize.y - 3),
+      size: Vector2(playerSize.x*0.6, 2),
+      collisionType: CollisionType.active
+    );
+
+    add(leftHitbox);
+    add(rightHitbox);
+    add(topHitbox);
+    add(bottomHitbox);
+  }
+
+
   /// A method that loads all animations for character movement
   void _loadAllAnimations() {
     idleAnimation = _spriteAnimation('arturo_bird_front_walk_anim.png', 1);
@@ -64,7 +104,7 @@ class Player extends SpriteAnimationGroupComponent
       SpriteAnimationData.sequenced(
         amount: amount,
         stepTime: stepTime,
-        textureSize: Vector2(24, 48),
+        textureSize: playerSize,
       ),
     );
   }
@@ -83,42 +123,42 @@ class Player extends SpriteAnimationGroupComponent
         // Set current player state
         current = PlayerState.runningFront;
         // Add vector Y with the movement speed to change vector Y position upward
-        dirY += movementSpeed;
+        dirY += bottomHitbox.isColliding ? 0 : movementSpeed;
         break;
       case PlayerDirection.up:
         // Set current player state
         current = PlayerState.runningBack;
         // Subtract vector Y with the movement speed to change vector Y position downward
-        dirY -= movementSpeed;
+        dirY -= topHitbox.isColliding ? 0 : movementSpeed;
         break;
       case PlayerDirection.left:
         current = PlayerState.runningLeft;
         // Similar with process above done with vector Y
-        dirX -= movementSpeed;
+        dirX -= leftHitbox.isColliding ? 0 : movementSpeed;
         break;
       case PlayerDirection.right:
         current = PlayerState.runningRight;
-        dirX += movementSpeed;
+        dirX += rightHitbox.isColliding ? 0 : movementSpeed;
         break;
       case PlayerDirection.downLeft:
         current = PlayerState.runningFront;
-        dirX -= movementSpeed;
-        dirY += movementSpeed;
+        dirX -= leftHitbox.isColliding ? 0 : movementSpeed;
+        dirY += bottomHitbox.isColliding ? 0 : movementSpeed;
         break;
       case PlayerDirection.downRight:
         current = PlayerState.runningFront;
-        dirX += movementSpeed;
-        dirY += movementSpeed;
+        dirX += rightHitbox.isColliding ? 0 : movementSpeed;
+        dirY += bottomHitbox.isColliding ? 0 : movementSpeed;
         break;
       case PlayerDirection.upLeft:
         current = PlayerState.runningBack;
-        dirX -= movementSpeed;
-        dirY -= movementSpeed;
+        dirX -= leftHitbox.isColliding ? 0 : movementSpeed;
+        dirY -= topHitbox.isColliding ? 0 : movementSpeed;
         break;
       case PlayerDirection.upRight:
         current = PlayerState.runningBack;
-        dirX += movementSpeed;
-        dirY -= movementSpeed;
+        dirX += rightHitbox.isColliding ? 0 : movementSpeed;
+        dirY -= topHitbox.isColliding ? 0 : movementSpeed;
         break;
       default:
     }
@@ -128,6 +168,4 @@ class Player extends SpriteAnimationGroupComponent
     // Sets the position of the player
     position += velocity * dt;
   }
-
-
 }

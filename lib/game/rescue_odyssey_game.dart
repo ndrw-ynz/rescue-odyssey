@@ -12,7 +12,7 @@ import 'package:rescue_odyssey/worlds/prelude_world_manager.dart';
 /// The base class of the game.
 ///
 /// `RescueOdysseyGame` contains all of the components of the game.
-class RescueOdysseyGame extends FlameGame {
+class RescueOdysseyGame extends FlameGame with HasCollisionDetection {
 
   @override
   Color backgroundColor() => const Color(0xFF211F30);
@@ -43,7 +43,7 @@ class RescueOdysseyGame extends FlameGame {
     // dimension should be fixed
     // display of worlds should be fixed (no scaling)
     // camera = CameraComponent.withFixedResolution(
-    //   height: 320,
+    //   height: 420,
     //   width: 620,
     //   world: world
     // );
