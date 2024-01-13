@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="14">
+ <tileset firstgid="1" name="prelude_waldorf_woodenboardingcottage" tilewidth="32" tileheight="32" tilecount="100" columns="10">
+  <image source="../images/world_tiles/prelude/prelude_waldorf_woodenboardingcottage.png" width="320" height="320"/>
+ </tileset>
+ <layer id="1" name="base" width="10" height="10">
+  <data encoding="base64">
+   AQAAAAIAAAADAAAABAAAAAUAAAAGAAAABwAAAAgAAAAJAAAACgAAAAsAAAAMAAAADQAAAA4AAAAPAAAAEAAAABEAAAASAAAAEwAAABQAAAAVAAAAFgAAABcAAAAYAAAAGQAAABoAAAAbAAAAHAAAAB0AAAAeAAAAHwAAACAAAAAhAAAAIgAAACMAAAAkAAAAJQAAACYAAAAnAAAAKAAAACkAAAAqAAAAKwAAACwAAAAtAAAALgAAAC8AAAAwAAAAMQAAADIAAAAzAAAANAAAADUAAAA2AAAANwAAADgAAAA5AAAAOgAAADsAAAA8AAAAPQAAAD4AAAA/AAAAQAAAAEEAAABCAAAAQwAAAEQAAABFAAAARgAAAEcAAABIAAAASQAAAEoAAABLAAAATAAAAE0AAABOAAAATwAAAFAAAABRAAAAUgAAAFMAAABUAAAAVQAAAFYAAABXAAAAWAAAAFkAAABaAAAAWwAAAFwAAABdAAAAXgAAAF8AAABgAAAAYQAAAGIAAABjAAAAZAAAAA==
+  </data>
+ </layer>
+ <objectgroup id="2" name="Spawnpoint">
+  <object id="3" name="Player" type="Player" x="190" y="96" width="31.5918" height="65.235"/>
+ </objectgroup>
+ <objectgroup id="4" name="Collision">
+  <object id="7" name="Collision" type="Collision" x="0" y="255.196" width="127.188" height="64.0041"/>
+  <object id="8" name="Collision" type="Collision" x="0" y="-0.410283" width="31.1815" height="254.375"/>
+  <object id="11" name="Collision" type="Collision" x="192.012" y="255.196" width="127.598" height="64.0041"/>
+  <object id="12" name="Collision" type="Collision" x="288.429" y="0.410283" width="31.1815" height="252.734"/>
+  <object id="13" name="Collision" type="Collision" x="31.5918" y="0" width="256.016" height="31.1815"/>
+ </objectgroup>
+</map>
