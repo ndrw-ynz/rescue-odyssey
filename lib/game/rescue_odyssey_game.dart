@@ -8,6 +8,11 @@ import 'package:flutter/services.dart';
 import 'package:rescue_odyssey/entities/player.dart';
 import 'package:rescue_odyssey/worlds/prelude_world_manager.dart';
 
+/// The [CurrentChapterState] enum contains the available chapters of the game.
+enum CurrentChapterState {
+  prelude
+}
+
 ///
 /// [RescueOdysseyGame] contains all of the main components of the game.
 ///
@@ -24,13 +29,14 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
   late final PreludeWorldManager preludeWorldManager;
   /// A boolean value that enables and disables joystick usage.
   bool isUsingJoystick = false;
-
-  /// EXPERIMENT VAR
+  /// Contains the current chapter state of the game.
+  CurrentChapterState chapterState = CurrentChapterState.prelude;
+  /// EXPERIMENT VAR. may use.
   bool isWarping = false;
 
-  /// EXPERIMENT FUNCTION.
+  /// EXPERIMENT FUNCTION. not using anymore
   void switchPreludeWorld(PreludeWorldState warpTargetWorld, Vector2 warpTargetPoint) {
-    world.remove(player);
+    world.remove(preludeWorldManager.player);
     // Change world
     switch (warpTargetWorld) {
       case PreludeWorldState.woodenBoardingCottage:
@@ -41,10 +47,12 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
         break;
     }
     // Change position of player.
-    player.position = warpTargetPoint;
+    preludeWorldManager.player.position = warpTargetPoint;
     // Add player
-    world.add(player);
+    world.add(preludeWorldManager.player);
   }
+
+  // TODO: maybe add func for changing world based on current enum state of CurrentChapterState
 
   @override
   Future<void> onLoad() async {
@@ -56,7 +64,9 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
     preludeWorldManager = PreludeWorldManager(player: player);
 
     preludeWorldManager.loadWorlds();
-    world = preludeWorldManager.preludeWoodenBoardingCottage;
+    world = preludeWorldManager.getCurrentWorld();
+    // NOTE: ADDING SHOULD BE MADE ON THE SAME FUNCTION BODY TO AVOID CONCURRENCY BS.
+    //world.add(player);
 
     // dimension should be fixed
     // display of worlds should be fixed (no scaling)
@@ -82,11 +92,27 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
 
   @override
   void update(double dt) {
+    super.update(dt);
     // Updates character movement using joystick if it is enabled and keyboard controls is disabled
-    if(isUsingJoystick) {
+    if (isUsingJoystick) {
       updateJoystick();
     }
-    super.update(dt);
+    // Update world for warping.
+    if (isWarping) {
+      switch (chapterState) {
+        case CurrentChapterState.prelude:
+          // TODO: switch camera view instead of unloading?
+          World currentWorld = preludeWorldManager.getCurrentWorld();
+          print('warped!');
+          world.remove(player);
+          world = currentWorld;
+          // world = preludeWorldManager.getCurrentWorld();
+          world.add(player);
+
+          break;
+      }
+      isWarping = false;
+    }
   }
 
   @override

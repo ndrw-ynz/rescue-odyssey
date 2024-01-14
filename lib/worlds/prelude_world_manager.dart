@@ -1,5 +1,4 @@
 import 'package:flame/components.dart';
-import 'package:flame/game.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:rescue_odyssey/components/collision_block.dart';
 import 'package:rescue_odyssey/components/warp_zone_block.dart';
@@ -109,5 +108,14 @@ class PreludeWorldManager {
         world.add(warpZone);
       }
     }
+  }
+
+  World getCurrentWorld() {
+    late World currentWorld;
+    switch (currentWorldState) {
+      case PreludeWorldState.woodenBoardingCottage: currentWorld = preludeWoodenBoardingCottage;
+      case PreludeWorldState.cottageHalls: currentWorld = preludeCottageHalls;
+    }
+    return currentWorld;
   }
 }
