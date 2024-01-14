@@ -1,4 +1,3 @@
-import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -22,20 +21,42 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
   /// The player of the game.
   late final Player player;
   /// A manager that stores data about worlds used for the prelude of the game.
-  final PreludeWorldManager preludeWorldManager = PreludeWorldManager();
+  late final PreludeWorldManager preludeWorldManager;
   /// A boolean value that enables and disables joystick usage.
-  bool isUsingJoystick = true;
+  bool isUsingJoystick = false;
+
+  /// EXPERIMENT VAR
+  bool isWarping = false;
+
+  /// EXPERIMENT FUNCTION.
+  void switchPreludeWorld(PreludeWorldState warpTargetWorld, Vector2 warpTargetPoint) {
+    world.remove(player);
+    // Change world
+    switch (warpTargetWorld) {
+      case PreludeWorldState.woodenBoardingCottage:
+        world = preludeWorldManager.preludeWoodenBoardingCottage;
+        break;
+      case PreludeWorldState.cottageHalls:
+        world = preludeWorldManager.preludeCottageHalls;
+        break;
+    }
+    // Change position of player.
+    player.position = warpTargetPoint;
+    // Add player
+    world.add(player);
+  }
 
   @override
   Future<void> onLoad() async {
     // Load all images into cache
     await images.loadAllImages();
     
-    // Create preludeWorld
+    // Initialize late final variables.
     player = Player();
-    preludeWorldManager.loadWorlds(player);
-    world = preludeWorldManager.preludeWoodenBoardingCottage
-    ..debugMode = true;
+    preludeWorldManager = PreludeWorldManager(player: player);
+
+    preludeWorldManager.loadWorlds();
+    world = preludeWorldManager.preludeWoodenBoardingCottage;
 
     // dimension should be fixed
     // display of worlds should be fixed (no scaling)
@@ -55,8 +76,8 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
     if(isUsingJoystick) {
       createJoystick();
     }
-    // Add the player to the world
-    world.add(player);
+
+    debugMode = true;
   }
 
   @override
@@ -104,7 +125,7 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
     return super.onKeyEvent(event, keysPressed);
   }
 
-  Color backgroundColor() => const Color(0xFF211F30);
+  // Color backgroundColor() => const Color(0x00000000);
 
   ///
   /// The [createJoystick] method creates the joystick of the game.

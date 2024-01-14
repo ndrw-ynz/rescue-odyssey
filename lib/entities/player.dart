@@ -3,6 +3,9 @@ import 'package:flame/components.dart';
 import 'dart:async';
 import 'package:rescue_odyssey/game/rescue_odyssey_game.dart';
 
+import '../components/collision_block.dart';
+import '../components/warp_zone_block.dart';
+
 /// The [PlayerState] enum containing the possible asset state of the Player.
 enum PlayerState {idle, runningBack, runningFront, runningLeft, runningRight}
 
@@ -60,7 +63,17 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
     super.update(dt);
   }
 
-  ///.
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    super.onCollision(intersectionPoints, other);
+    if (other is WarpZoneBlock) {
+
+    } else if (other is CollisionBlock) {
+
+    }
+  }
+
+  ///
   /// [_initHitboxes] is a private method that initializes the hitboxes of the 4 sides of [Player].
   ///
   void _initHitboxes() {
