@@ -83,9 +83,8 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
     if (isWarping) {
       switch (chapterState) {
         case CurrentChapterState.prelude:
-          world.remove(player);
           world = preludeWorldManager.getCurrentWorld();
-          world.add(player);
+          if (!world.contains(player)) world.add(player);
           break;
       }
       isWarping = false;
