@@ -20,7 +20,6 @@ class WarpZoneBlock extends PositionComponent with CollisionCallbacks, HasGameRe
 
   WarpZoneBlock({position, size, required this.warpTargetPoint, required warpTargetWorld}) : super(position: position, size: size) {
     // Assign associated PreludeWorldState enum for each associated file_name in file.
-    print(warpTargetWorld);
     switch (warpTargetWorld) {
       case "prelude_waldorf_woodenboardingcottage": this.warpTargetWorld = PreludeWorldState.woodenBoardingCottage;
       case "prelude_waldorf_cottage_halls": this.warpTargetWorld = PreludeWorldState.cottageHalls;

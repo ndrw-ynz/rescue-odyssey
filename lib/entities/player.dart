@@ -50,6 +50,8 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
   /// The hitbox of the bottom side of the [Player].
   late final RectangleHitbox bottomHitbox;
 
+  Player() : super(priority: 1);
+
   @override
   FutureOr<void> onLoad() {
     _loadAllAnimations();

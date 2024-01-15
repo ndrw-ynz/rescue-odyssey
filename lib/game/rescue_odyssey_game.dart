@@ -31,26 +31,8 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
   bool isUsingJoystick = false;
   /// Contains the current chapter state of the game.
   CurrentChapterState chapterState = CurrentChapterState.prelude;
-  /// EXPERIMENT VAR. may use.
+  /// A boolean value that keeps track of warping events occurring in game.
   bool isWarping = false;
-
-  /// EXPERIMENT FUNCTION. not using anymore
-  void switchPreludeWorld(PreludeWorldState warpTargetWorld, Vector2 warpTargetPoint) {
-    world.remove(preludeWorldManager.player);
-    // Change world
-    switch (warpTargetWorld) {
-      case PreludeWorldState.woodenBoardingCottage:
-        world = preludeWorldManager.preludeWoodenBoardingCottage;
-        break;
-      case PreludeWorldState.cottageHalls:
-        world = preludeWorldManager.preludeCottageHalls;
-        break;
-    }
-    // Change position of player.
-    preludeWorldManager.player.position = warpTargetPoint;
-    // Add player
-    world.add(preludeWorldManager.player);
-  }
 
   // TODO: maybe add func for changing world based on current enum state of CurrentChapterState
 
@@ -101,14 +83,9 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
     if (isWarping) {
       switch (chapterState) {
         case CurrentChapterState.prelude:
-          // TODO: switch camera view instead of unloading?
-          World currentWorld = preludeWorldManager.getCurrentWorld();
-          print('warped!');
           world.remove(player);
-          world = currentWorld;
-          // world = preludeWorldManager.getCurrentWorld();
+          world = preludeWorldManager.getCurrentWorld();
           world.add(player);
-
           break;
       }
       isWarping = false;
