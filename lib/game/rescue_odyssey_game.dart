@@ -1,4 +1,3 @@
-import 'package:flame/camera.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -8,6 +7,11 @@ import 'package:flutter/services.dart';
 
 import 'package:rescue_odyssey/entities/player.dart';
 import 'package:rescue_odyssey/worlds/prelude_world_manager.dart';
+
+/// The [CurrentChapterState] enum contains the available chapters of the game.
+enum CurrentChapterState {
+  prelude
+}
 
 ///
 /// [RescueOdysseyGame] contains all of the main components of the game.
@@ -22,20 +26,29 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
   /// The player of the game.
   late final Player player;
   /// A manager that stores data about worlds used for the prelude of the game.
-  final PreludeWorldManager preludeWorldManager = PreludeWorldManager();
+  late final PreludeWorldManager preludeWorldManager;
   /// A boolean value that enables and disables joystick usage.
-  bool isUsingJoystick = true;
+  bool isUsingJoystick = false;
+  /// Contains the current chapter state of the game.
+  CurrentChapterState chapterState = CurrentChapterState.prelude;
+  /// A boolean value that keeps track of warping events occurring in game.
+  bool isWarping = false;
+
+  // TODO: maybe add func for changing world based on current enum state of CurrentChapterState
 
   @override
   Future<void> onLoad() async {
     // Load all images into cache
     await images.loadAllImages();
     
-    // Create preludeWorld
+    // Initialize late final variables.
     player = Player();
-    preludeWorldManager.loadWorlds(player);
-    world = preludeWorldManager.preludeWoodenBoardingCottage
-    ..debugMode = true;
+    preludeWorldManager = PreludeWorldManager(player: player);
+
+    preludeWorldManager.loadWorlds();
+    world = preludeWorldManager.getCurrentWorld();
+    // NOTE: ADDING SHOULD BE MADE ON THE SAME FUNCTION BODY TO AVOID CONCURRENCY BS.
+    //world.add(player);
 
     // dimension should be fixed
     // display of worlds should be fixed (no scaling)
@@ -55,17 +68,27 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
     if(isUsingJoystick) {
       createJoystick();
     }
-    // Add the player to the world
-    world.add(player);
+
+    debugMode = true;
   }
 
   @override
   void update(double dt) {
+    super.update(dt);
     // Updates character movement using joystick if it is enabled and keyboard controls is disabled
-    if(isUsingJoystick) {
+    if (isUsingJoystick) {
       updateJoystick();
     }
-    super.update(dt);
+    // Update world for warping.
+    if (isWarping) {
+      switch (chapterState) {
+        case CurrentChapterState.prelude:
+          world = preludeWorldManager.getCurrentWorld();
+          if (!world.contains(player)) world.add(player);
+          break;
+      }
+      isWarping = false;
+    }
   }
 
   @override
@@ -104,7 +127,7 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
     return super.onKeyEvent(event, keysPressed);
   }
 
-  Color backgroundColor() => const Color(0xFF211F30);
+  // Color backgroundColor() => const Color(0x00000000);
 
   ///
   /// The [createJoystick] method creates the joystick of the game.
