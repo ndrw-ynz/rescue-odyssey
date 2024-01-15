@@ -15,8 +15,8 @@
   <object id="14" name="Warp Zone" type="Warp Zone" x="128.182" y="315.182" width="62.7273" height="4.27273">
    <properties>
     <property name="targetWorld" value="prelude_waldorf_cottage_halls"/>
-    <property name="targetX" type="int" value="96"/>
-    <property name="targetY" type="int" value="329"/>
+    <property name="targetX" type="int" value="83"/>
+    <property name="targetY" type="int" value="287"/>
    </properties>
   </object>
  </objectgroup>

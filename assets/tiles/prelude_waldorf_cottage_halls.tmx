@@ -17,8 +17,8 @@
   <object id="2" name="Warp Zone" type="Warp Zone" x="82.5" y="310.5" width="27" height="7.5">
    <properties>
     <property name="targetWorld" value="prelude_waldorf_woodenboardingcottage"/>
-    <property name="targetX" type="int" value="50"/>
-    <property name="targetY" type="int" value="50"/>
+    <property name="targetX" type="int" value="148"/>
+    <property name="targetY" type="int" value="260"/>
    </properties>
   </object>
  </objectgroup>
@@ -30,7 +30,7 @@
    <polygon points="0,0 30.6667,-59 62.3333,-60.3333 62.3333,-156.333 -1.66667,-156.333"/>
   </object>
  </objectgroup>
- <objectgroup id="2" name="Spawnpoint" visible="0">
+ <objectgroup id="2" name="Spawnpoint">
   <object id="1" name="Player" type="Player" x="64.3636" y="288.182" width="31.0909" height="63.6364"/>
  </objectgroup>
 </map>
