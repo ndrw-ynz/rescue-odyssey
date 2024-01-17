@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="15">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="26">
  <tileset firstgid="1" name="prelude_waldorf_woodenboardingcottage" tilewidth="32" tileheight="32" tilecount="100" columns="10">
   <image source="../images/world_tiles/prelude/prelude_waldorf_woodenboardingcottage.png" width="320" height="320"/>
  </tileset>
@@ -8,10 +8,10 @@
    AQAAAAIAAAADAAAABAAAAAUAAAAGAAAABwAAAAgAAAAJAAAACgAAAAsAAAAMAAAADQAAAA4AAAAPAAAAEAAAABEAAAASAAAAEwAAABQAAAAVAAAAFgAAABcAAAAYAAAAGQAAABoAAAAbAAAAHAAAAB0AAAAeAAAAHwAAACAAAAAhAAAAIgAAACMAAAAkAAAAJQAAACYAAAAnAAAAKAAAACkAAAAqAAAAKwAAACwAAAAtAAAALgAAAC8AAAAwAAAAMQAAADIAAAAzAAAANAAAADUAAAA2AAAANwAAADgAAAA5AAAAOgAAADsAAAA8AAAAPQAAAD4AAAA/AAAAQAAAAEEAAABCAAAAQwAAAEQAAABFAAAARgAAAEcAAABIAAAASQAAAEoAAABLAAAATAAAAE0AAABOAAAATwAAAFAAAABRAAAAUgAAAFMAAABUAAAAVQAAAFYAAABXAAAAWAAAAFkAAABaAAAAWwAAAFwAAABdAAAAXgAAAF8AAABgAAAAYQAAAGIAAABjAAAAZAAAAA==
   </data>
  </layer>
- <objectgroup id="2" name="Spawnpoint">
+ <objectgroup id="2" name="Spawnpoint" visible="0">
   <object id="3" name="Player" type="Player" x="190" y="96" width="31.5918" height="65.235"/>
  </objectgroup>
- <objectgroup id="5" name="Warp Zone">
+ <objectgroup id="5" name="Warp Zone" visible="0">
   <object id="14" name="Warp Zone" type="Warp Zone" x="128.182" y="315.182" width="62.7273" height="4.27273">
    <properties>
     <property name="targetWorld" value="prelude_waldorf_cottage_halls"/>
@@ -20,11 +20,34 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Collision">
+ <objectgroup id="4" name="Collision" visible="0">
   <object id="7" name="Collision" type="Collision" x="0" y="255.196" width="127.188" height="64.0041"/>
   <object id="8" name="Collision" type="Collision" x="0" y="-0.410283" width="31.1815" height="254.375"/>
   <object id="11" name="Collision" type="Collision" x="192.012" y="255.196" width="127.598" height="64.0041"/>
   <object id="12" name="Collision" type="Collision" x="288.429" y="0.410283" width="31.1815" height="252.734"/>
-  <object id="13" name="Collision" type="Collision" x="31.5918" y="0" width="256.016" height="31.1815"/>
+  <object id="13" name="Collision" type="Collision" x="31.5918" y="64" width="256.016" height="31.1815"/>
+  <object id="25" name="Collision" x="224" y="96" width="63" height="63"/>
+ </objectgroup>
+ <objectgroup id="6" name="Interactable">
+  <object id="21" name="Books" x="32" y="192" width="32" height="64">
+   <properties>
+    <property name="dialogue" value="A bunch of books, mostly about animals unfamiliar to you."/>
+   </properties>
+  </object>
+  <object id="22" name="Bookshelf" x="33.5" y="36" width="59.5" height="64.5">
+   <properties>
+    <property name="dialogue" value="An old bookshelf, containing books about interesting plants and animals found in the wild."/>
+   </properties>
+  </object>
+  <object id="23" name="Desk" x="32" y="128" width="32" height="64">
+   <properties>
+    <property name="dialogue" value="Your messy study desk. There are notes scattered near the desk, containing notes about endangered animals."/>
+   </properties>
+  </object>
+  <object id="24" name="Bed" x="224" y="96" width="64" height="64">
+   <properties>
+    <property name="dialogue" value="Your messy bed. You just woke up."/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
