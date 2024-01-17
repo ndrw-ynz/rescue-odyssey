@@ -40,7 +40,7 @@ class PreludeWorldManager extends WorldManager {
     addSpawnPoint(map, preludeWoodenBoardingCottage);
     addCollisions(map, preludeWoodenBoardingCottage);
     addWarpZones(map, preludeWoodenBoardingCottage);
-
+    addInteractables(map, preludeWoodenBoardingCottage);
   }
 
   Future<void> loadPreludeCottageHalls() async {

@@ -3,8 +3,7 @@ import 'package:flame/components.dart';
 import 'dart:async';
 import 'package:rescue_odyssey/game/rescue_odyssey_game.dart';
 
-import '../components/collision_block.dart';
-import '../components/warp_zone_block.dart';
+import 'package:rescue_odyssey/components/interactable_block.dart';
 
 /// The [PlayerState] enum containing the possible asset state of the Player.
 enum PlayerState {idle, runningBack, runningFront, runningLeft, runningRight}
@@ -68,11 +67,7 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is WarpZoneBlock) {
 
-    } else if (other is CollisionBlock) {
-
-    }
   }
 
   ///

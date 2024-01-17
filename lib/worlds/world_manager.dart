@@ -1,6 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame_tiled/flame_tiled.dart';
 import 'package:rescue_odyssey/components/collision_block.dart';
+import 'package:rescue_odyssey/components/interactable_block.dart';
 import 'package:rescue_odyssey/components/warp_zone_block.dart';
 
 import 'package:rescue_odyssey/entities/player.dart';
@@ -61,6 +62,26 @@ abstract class WorldManager {
             warpTargetWorld: warpZoneBlock.properties.getValue("targetWorld")
         );
         world.add(warpZone);
+      }
+    }
+  }
+
+  void addInteractables(TiledComponent map, World world) {
+    final interactableLayer = map.tileMap.getLayer<ObjectGroup>('Interactable');
+    if (interactableLayer != null) {
+      for (final interactableObject in interactableLayer.objects) {
+        final interactable = InteractableBlock(
+          position: Vector2(
+              interactableObject.x,
+              interactableObject.y
+          ),
+          size: Vector2(
+              interactableObject.width,
+              interactableObject.height
+          ),
+          interactableDialogue: interactableObject.properties.getValue("dialogue")
+        );
+        world.add(interactable);
       }
     }
   }
