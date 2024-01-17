@@ -99,29 +99,29 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
     final right = keysPressed.contains(LogicalKeyboardKey.keyD) || keysPressed.contains(LogicalKeyboardKey.arrowRight);
 
     if (left && down && right) {
-      player.playerDirection = PlayerDirection.down;
+      player.playerDirection = PlayerMovementState.down;
     } else if (left && up && right) {
-      player.playerDirection = PlayerDirection.up;
+      player.playerDirection = PlayerMovementState.up;
     } else if ((down && up) || (left && right)) {
-      player.playerDirection = PlayerDirection.none;
+      player.playerDirection = PlayerMovementState.none;
     }else if(down && left) {
-      player.playerDirection = PlayerDirection.downLeft;
+      player.playerDirection = PlayerMovementState.downLeft;
     }else if(down && right) {
-      player.playerDirection = PlayerDirection.downRight;
+      player.playerDirection = PlayerMovementState.downRight;
     } else if(up && left) {
-      player.playerDirection = PlayerDirection.upLeft;
+      player.playerDirection = PlayerMovementState.upLeft;
     } else if(up && right) {
-      player.playerDirection = PlayerDirection.upRight;
+      player.playerDirection = PlayerMovementState.upRight;
     } else if(down) {
-      player.playerDirection = PlayerDirection.down;
+      player.playerDirection = PlayerMovementState.down;
     } else if(up) {
-      player.playerDirection = PlayerDirection.up;
+      player.playerDirection = PlayerMovementState.up;
     } else if(left) {
-      player.playerDirection = PlayerDirection.left;
+      player.playerDirection = PlayerMovementState.left;
     } else if(right) {
-      player.playerDirection = PlayerDirection.right;
+      player.playerDirection = PlayerMovementState.right;
     } else {
-      player.playerDirection = PlayerDirection.none;
+      player.playerDirection = PlayerMovementState.none;
     }
 
     return super.onKeyEvent(event, keysPressed);
@@ -144,37 +144,37 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
   }
 
   ///
-  /// The [updateJoystick] method updates the [PlayerDirection] state of the Player.
+  /// The [updateJoystick] method updates the [PlayerMovementState] state of the Player.
   /// upon the movement of the joystick.
   ///
   void updateJoystick() {
     switch (joystick.direction) {
       case JoystickDirection.down:
-        player.playerDirection = PlayerDirection.down;
+        player.playerDirection = PlayerMovementState.down;
         break;
       case JoystickDirection.up:
-        player.playerDirection = PlayerDirection.up;
+        player.playerDirection = PlayerMovementState.up;
         break;
       case JoystickDirection.left:
-        player.playerDirection = PlayerDirection.left;
+        player.playerDirection = PlayerMovementState.left;
         break;
       case JoystickDirection.right:
-        player.playerDirection = PlayerDirection.right;
+        player.playerDirection = PlayerMovementState.right;
         break;
       case JoystickDirection.downLeft:
-        player.playerDirection = PlayerDirection.downLeft;
+        player.playerDirection = PlayerMovementState.downLeft;
         break;
       case JoystickDirection.downRight:
-        player.playerDirection = PlayerDirection.downRight;
+        player.playerDirection = PlayerMovementState.downRight;
         break;
       case JoystickDirection.upLeft:
-        player.playerDirection = PlayerDirection.upLeft;
+        player.playerDirection = PlayerMovementState.upLeft;
         break;
       case JoystickDirection.upRight:
-        player.playerDirection = PlayerDirection.upRight;
+        player.playerDirection = PlayerMovementState.upRight;
         break;
       default:
-        player.playerDirection = PlayerDirection.none;
+        player.playerDirection = PlayerMovementState.none;
         break;
     }
   }
