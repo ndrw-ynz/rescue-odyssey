@@ -31,22 +31,22 @@
  <objectgroup id="6" name="Interactable">
   <object id="21" name="Books" x="32" y="192" width="32" height="64">
    <properties>
-    <property name="dialogue" value="A bunch of books, mostly about animals unfamiliar to you."/>
+    <property name="dialogue" value="Wooden_Boarding_Cottage_Books"/>
    </properties>
   </object>
   <object id="22" name="Bookshelf" x="33.5" y="36" width="59.5" height="64.5">
    <properties>
-    <property name="dialogue" value="An old bookshelf, containing books about interesting plants and animals found in the wild."/>
+    <property name="dialogue" value="Wooden_Boarding_Cottage_Bookshelf"/>
    </properties>
   </object>
   <object id="23" name="Desk" x="32" y="128" width="32" height="64">
    <properties>
-    <property name="dialogue" value="Your messy study desk. There are notes scattered near the desk, containing notes about endangered animals."/>
+    <property name="dialogue" value="Wooden_Boarding_Cottage_Desk"/>
    </properties>
   </object>
   <object id="24" name="Bed" x="224" y="96" width="64" height="64">
    <properties>
-    <property name="dialogue" value="Your messy bed. You just woke up."/>
+    <property name="dialogue" value="Wooden_Boarding_Cottage_Bed"/>
    </properties>
   </object>
  </objectgroup>
