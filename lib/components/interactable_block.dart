@@ -39,10 +39,10 @@ class InteractableBlock extends PositionComponent with CollisionCallbacks, HasGa
       game.dialogueProperty = interactableDialogue;
       game.isDialogueFinished = false;
 
-      // debugPrint("");
-      // debugPrint("isOnDialogue: ${game.isOnDialogue}");
-      // debugPrint("dialogueProperty: ${game.dialogueProperty}");
-      // debugPrint("isDialogueFinished: ${game.isDialogueFinished}");
+      debugPrint("");
+      debugPrint("isOnDialogue: ${game.isOnDialogue}");
+      debugPrint("dialogueProperty: ${game.dialogueProperty}");
+      debugPrint("isDialogueFinished: ${game.isDialogueFinished}");
     }
   }
 
