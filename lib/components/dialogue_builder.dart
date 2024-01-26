@@ -56,7 +56,12 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
   @override
   FutureOr<void> onDialogueFinish() {
     remove(mainDialogueTextComponent);
-    isDialogueFinished = true;
+    game.isDialogueFinished = true;
+    debugPrint("Done");
+    debugPrint("");
+    debugPrint("isOnDialogue: ${game.isOnDialogue}");
+    debugPrint("dialogueProperty: ${game.dialogueProperty}");
+    debugPrint("isDialogueFinished: ${game.isDialogueFinished}");
     return super.onDialogueFinish();
   }
 }
