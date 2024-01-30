@@ -20,7 +20,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Collision" visible="0">
+ <objectgroup id="4" name="Collision">
   <object id="7" name="Collision" type="Collision" x="0" y="255.196" width="127.188" height="64.0041"/>
   <object id="8" name="Collision" type="Collision" x="0" y="-0.410283" width="31.1815" height="254.375"/>
   <object id="11" name="Collision" type="Collision" x="192.012" y="255.196" width="127.598" height="64.0041"/>
