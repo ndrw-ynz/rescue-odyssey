@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="16">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="17">
  <tileset firstgid="1" name="prelude_waldorf_cottage_halls" tilewidth="32" tileheight="32" tilecount="280" columns="20">
   <image source="../images/world_tiles/prelude/prelude_waldorf_cottage_halls.png" width="640" height="448"/>
  </tileset>
@@ -21,8 +21,15 @@
     <property name="targetY" type="int" value="260"/>
    </properties>
   </object>
+  <object id="16" name="Warp Zone" type="Warp Zone" x="106" y="115.333" width="44.6667" height="9.33333">
+   <properties>
+    <property name="targetWorld" value="prelude_ext_boardinghouse"/>
+    <property name="targetX" type="int" value="658"/>
+    <property name="targetY" type="int" value="235"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup id="4" name="Collision">
+ <objectgroup id="4" name="Collision" visible="0">
   <object id="4" x="-0.5" y="384.5" width="640.833" height="63.8333"/>
   <object id="5" x="0.5" y="0" width="30" height="382.75"/>
   <object id="6" x="578" y="0.666667" width="62" height="380.667"/>
