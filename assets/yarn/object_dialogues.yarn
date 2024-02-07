@@ -3,6 +3,13 @@
 title: Wooden_Boarding_Cottage_Bed
 ---
 Your messy bed. You just woke up.
+-> Check Blanket.
+   Patch: I found a strange CD
+-> Check Pillow.
+   Patch: I found nothing
+-> Edge Case Number 1 Lmao This is a bit long
+   Patch: Test Edge Case
+-> Edge Case Number 2
 ===
 
 title: Wooden_Boarding_Cottage_Desk
@@ -12,7 +19,11 @@ Your messy study desk. There are notes scattered near the desk, containing notes
 
 title: Wooden_Boarding_Cottage_Books
 ---
+First Line Test.
 Patch: A bunch of books, mostly about animals unfamiliar to you.
+New Line Test 1.
+New Line Test 2.
+Patch: New Line Test 3.
 ===
 
 title: Wooden_Boarding_Cottage_Bookshelf
