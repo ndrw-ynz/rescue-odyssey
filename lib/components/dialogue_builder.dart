@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 import 'package:flame/cache.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
@@ -18,8 +19,10 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
   bool isDialogueFinished = true;
   /// Gives the attributes for the text.
   final dialoguePaint = TextPaint(style: const TextStyle(fontFamily: 'Yoster', fontSize: 18));
+  final choicePaint = TextPaint(style: const TextStyle(fontFamily: 'Yoster', fontSize: 12, color: Colors.white));
   /// A class that completes the dialogue progression asynchronously.
   Completer<void> _dialogueCompleter = Completer();
+  Completer<int> _choiceCompleter = Completer<int>();
 
   late SpriteComponent textBackgroundComponent;
 
@@ -28,6 +31,7 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
 
   late TextBoxComponent nameTextComponent;
 
+  List<ButtonComponent> optionList = [];
 
   @override
   Future<void> onLoad() async {
@@ -60,6 +64,45 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
     return super.onLineStart(line);
   }
 
+  @override
+  FutureOr<int?> onChoiceStart(DialogueChoice choice) async{
+    _choiceCompleter = Completer<int>();
+    nextLineButton.removeFromParent();
+    double space = 120;
+    for (int i = 0; i<choice.options.length; i++){
+      debugPrint(choice.options[i].text.toString().length.toString());
+      optionList.add(ButtonComponent(
+          position: Vector2(30, i * 50 + space),
+          size: Vector2(400, 50),
+          // gameRef.size.x * .67
+          // button: TextBoxComponent(textRenderer: choicePaint, text: 'Choice ${i+1}: ${choice.options[i].text}'),
+          button: TextBoxComponent(align: Anchor.centerLeft,size: Vector2(400, 50), textRenderer: choicePaint, text: 'Choice: ${choice.options[i].text}'),
+          onPressed: (){
+            if (!_choiceCompleter.isCompleted){
+              _choiceCompleter.complete(i);
+            }
+          }
+        ),
+      );
+      space += 20;
+    }
+    debugPrint(optionList.toString());
+    addAll(optionList);
+    await _getChoice(choice);
+    return _choiceCompleter.future;
+  }
+
+  @override
+  FutureOr<void> onChoiceFinish(DialogueOption option) {
+    removeAll(optionList);
+    optionList = [];
+    add(nextLineButton);
+    return super.onChoiceFinish(option);
+  }
+
+  Future<void> _getChoice(DialogueChoice choice) async {
+    return _dialogueCompleter.future;
+  }
 
   Future<void> _nextLine(DialogueLine line) async {
     bool characterIsSpeaking() {
