@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:html';
-import 'package:flame/cache.dart';
 import 'package:flame/components.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/input.dart';
-import 'package:flame/sprite.dart';
 import 'package:flutter/material.dart';
 import 'package:jenny/jenny.dart';
 import '../game/rescue_odyssey_game.dart';
