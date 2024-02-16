@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
@@ -34,12 +35,14 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
   CurrentChapterState chapterState = CurrentChapterState.prelude;
   /// A boolean value that keeps track of warping events occurring in game.
   bool isWarping = false;
-
+  /// Checks if dialogue is ongoing.
   bool isOnDialogue = false;
-
+  /// Checks if the whole dialogue is finished.
   bool isDialogueFinished = true;
+  /// Stores the dialogue's property from tiled to be read in [DialogueBox].
   String dialogueProperty = '';
-  late DialogueBox dialogueBox;
+  /// Creates a [DialogueBox] class for later use.
+  late DialogueBox dialogueBox ;
 
   // TODO: maybe add func for changing world based on current enum state of CurrentChapterState
 
@@ -47,7 +50,9 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
   Future<void> onLoad() async {
     // Load all images into cache
     await images.loadAllImages();
-    
+    dialogueBox = DialogueBox(dialogueProperty: "Starter");
+    camera.viewport.add(dialogueBox);
+
     // Initialize late final variables.
     player = Player();
     preludeWorldManager = PreludeWorldManager(player: player);
@@ -108,7 +113,7 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
         camera.viewport.add(dialogueBox);
         debugPrint("Dialogue box added");
         if(isUsingJoystick) {
-          camera.viewport.remove(joystick);
+          joystick.removeFromParent();
           debugPrint("Joystick was removed");
         }
       }
