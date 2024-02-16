@@ -15,7 +15,7 @@ Your messy bed. You just woke up.
    Patch: I found nothing
 -> This is a very long text choice. This shows the capability of the code to fit the choice into one box even if it is very long.
    Patch: Test Edge Case
--> To demonstrate the <<jump>> feature, this choice jumps to the dialogue of Wooden_Boarding_Cottage_Desk.
+-> To demonstrate the jump feature, this choice jumps to the dialogue of Wooden_Boarding_Cottage_Desk.
     <<jump Wooden_Boarding_Cottage_Desk>>
 ===
 
