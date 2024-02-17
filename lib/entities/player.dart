@@ -244,26 +244,26 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
       case PlayerMovementState.downLeft:
         current = PlayerAnimationState.runningFront;
         currentPosition =  PlayerCardinalDirectionState.south;
-        dirX -= leftHitbox.isColliding ? 0 : movementSpeed;
-        dirY += bottomHitbox.isColliding ? 0 : movementSpeed;
+        dirX -= leftHitbox.isColliding ? 0 : movementSpeed - 30;
+        dirY += bottomHitbox.isColliding ? 0 : movementSpeed - 30;
         break;
       case PlayerMovementState.downRight:
         current = PlayerAnimationState.runningFront;
         currentPosition =  PlayerCardinalDirectionState.south;
-        dirX += rightHitbox.isColliding ? 0 : movementSpeed;
-        dirY += bottomHitbox.isColliding ? 0 : movementSpeed;
+        dirX += rightHitbox.isColliding ? 0 : movementSpeed - 30;
+        dirY += bottomHitbox.isColliding ? 0 : movementSpeed - 30;
         break;
       case PlayerMovementState.upLeft:
         current = PlayerAnimationState.runningBack;
         currentPosition =  PlayerCardinalDirectionState.north;
-        dirX -= leftHitbox.isColliding ? 0 : movementSpeed;
-        dirY -= topHitbox.isColliding ? 0 : movementSpeed;
+        dirX -= leftHitbox.isColliding ? 0 : movementSpeed - 30;
+        dirY -= topHitbox.isColliding ? 0 : movementSpeed - 30;
         break;
       case PlayerMovementState.upRight:
         current = PlayerAnimationState.runningBack;
         currentPosition =  PlayerCardinalDirectionState.north;
-        dirX += rightHitbox.isColliding ? 0 : movementSpeed;
-        dirY -= topHitbox.isColliding ? 0 : movementSpeed;
+        dirX += rightHitbox.isColliding ? 0 : movementSpeed - 30;
+        dirY -= topHitbox.isColliding ? 0 : movementSpeed - 30;
         break;
       default:
     }

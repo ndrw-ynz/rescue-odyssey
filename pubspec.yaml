@@ -24,6 +24,7 @@ flutter:
   assets:
     - assets/images/characters/arturo_bird/
     - assets/images/characters/arturo_boy/
+    - assets/images/dialogue_box/
     - assets/images/world_tiles/prelude/
     - assets/tiles/
     - assets/yarn/

@@ -28,7 +28,7 @@
   <object id="13" name="Collision" type="Collision" x="31.5918" y="64" width="256.016" height="31.1815"/>
   <object id="25" name="Collision" x="224" y="96" width="63" height="63"/>
  </objectgroup>
- <objectgroup id="6" name="Interactable">
+ <objectgroup id="6" name="Interactable" visible="0">
   <object id="21" name="Books" x="32" y="192" width="32" height="64">
    <properties>
     <property name="dialogue" value="Wooden_Boarding_Cottage_Books"/>
