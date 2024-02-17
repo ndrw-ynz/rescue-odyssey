@@ -16,7 +16,7 @@ class CollisionBlock extends PositionComponent {
   Future<void> onLoad() async {
     hitBox = RectangleHitbox(
       isSolid: true,
-      collisionType: CollisionType.passive
+      collisionType: CollisionType.passive,
     );
     add(hitBox);
   }

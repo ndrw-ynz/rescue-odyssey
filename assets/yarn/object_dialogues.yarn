@@ -1,0 +1,40 @@
+<<character Patch>>
+
+title: Starter
+---
+My purpose is to load the dialogue box for optimization.
+===
+
+title: Wooden_Boarding_Cottage_Bed
+---
+debug mode... Test for multiple choices + character/non-character dialogue
+Your messy bed. You just woke up.
+-> Check Blanket.
+   Patch: I found a strange CD
+-> Check Pillow.
+   Patch: I found nothing
+-> This is a very long text choice. This shows the capability of the code to fit the choice into one box even if it is very long.
+   Patch: Test Edge Case
+-> To demonstrate the jump feature, this choice jumps to the dialogue of Wooden_Boarding_Cottage_Desk.
+    <<jump Wooden_Boarding_Cottage_Desk>>
+===
+
+title: Wooden_Boarding_Cottage_Desk
+---
+Your messy study desk. There are notes scattered near the desk, containing notes about endangered animals.
+===
+
+title: Wooden_Boarding_Cottage_Books
+---
+debug mode... Test for multiple lines + names of characters.
+Patch: A bunch of books, mostly about animals unfamiliar to you.
+New Line Test 1.
+New Line Test 2.
+Patch: New Line Test 3.
+===
+
+title: Wooden_Boarding_Cottage_Bookshelf
+---
+debug mode... Test for one line of non character dialogue.
+An old bookshelf, containing books about interesting plants and animals found in the wild.
+===

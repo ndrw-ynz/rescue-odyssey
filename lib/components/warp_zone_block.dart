@@ -29,8 +29,8 @@ class WarpZoneBlock extends PositionComponent with CollisionCallbacks, HasGameRe
   @override
   Future<void> onLoad() async {
     hitBox = RectangleHitbox(
-        isSolid: true,
-        collisionType: CollisionType.passive
+      isSolid: true,
+      collisionType: CollisionType.passive,
     );
     add(hitBox);
   }

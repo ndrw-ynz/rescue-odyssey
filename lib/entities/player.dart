@@ -1,15 +1,18 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/extensions.dart';
+import 'package:rescue_odyssey/components/interactable_block.dart';
 import 'dart:async';
 import 'package:rescue_odyssey/game/rescue_odyssey_game.dart';
-import '../components/collision_block.dart';
-import '../components/warp_zone_block.dart';
 
-/// The [PlayerState] enum containing the possible asset state of the Player.
-enum PlayerState {idle, idleFaceBack, idleFaceFront, idleFaceLeft, idleFaceRight, runningBack, runningFront, runningLeft, runningRight}
+/// The [PlayerAnimationState] enum containing the possible asset state of the Player.
+enum PlayerAnimationState {idle, idleFaceBack, idleFaceFront, idleFaceLeft, idleFaceRight, runningBack, runningFront, runningLeft, runningRight}
 
-/// The [PlayerDirection] enum containing the possible direction states of the Player.
-enum PlayerDirection {none, down, up, left, right, downLeft, downRight, upLeft, upRight}
+/// The [PlayerMovementState] enum containing the possible movement states of the Player.
+enum PlayerMovementState {none, down, up, left, right, downLeft, downRight, upLeft, upRight}
+
+/// The [PlayerCardinalDirectionState] enum containing the four possible directions of the Player.
+enum PlayerCardinalDirectionState {west, east, north, south}
 
 ///  [Player] contains the attributes and properties of the player of the game.
 ///
@@ -37,13 +40,13 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
   late final SpriteAnimation rightWalkAnimation;
 
   /// Last current position of [Player].
-  late var currentPosition = 'Front';
+  PlayerCardinalDirectionState currentPosition = PlayerCardinalDirectionState.south;
   /// The speed of [Player] character animation.
   final double stepTime = 0.20;
   /// The size dimension of the [Player].
   Vector2 playerSize = Vector2(24, 48);
-  /// The state of the [PlayerDirection] of the [Player].
-  PlayerDirection playerDirection = PlayerDirection.none;
+  /// The state of the [PlayerMovementState] of the [Player].
+  PlayerMovementState playerDirection = PlayerMovementState.none;
   /// The speed of [Player] for walking.
   double movementSpeed = 150;
   /// Contains the velocity value for walking.
@@ -77,9 +80,31 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollision(intersectionPoints, other);
-    if (other is WarpZoneBlock) {
+    // TODO:
+    if (other is InteractableBlock && intersectionPoints.length == 2) {
+      Vector2 pointA = intersectionPoints.elementAt(0);
+      Vector2 pointB = intersectionPoints.elementAt(1);
 
-    } else if (other is CollisionBlock) {
+      Vector2 interactablePoint = other.toRect().containsPoint(pointA) ? pointA : pointB;
+      bool isFacingInteractable = false;
+      switch (currentPosition) {
+        case PlayerCardinalDirectionState.north:
+          isFacingInteractable = positionOfAnchor(Anchor.bottomCenter).y - 5 > interactablePoint.y;
+          break;
+        case PlayerCardinalDirectionState.south:
+          isFacingInteractable = positionOfAnchor(Anchor.bottomCenter).y - 5 < interactablePoint.y;
+          break;
+        case PlayerCardinalDirectionState.west:
+          isFacingInteractable = positionOfAnchor(Anchor.bottomCenter).x > interactablePoint.x;
+          break;
+        case PlayerCardinalDirectionState.east:
+          isFacingInteractable = positionOfAnchor(Anchor.bottomCenter).x < interactablePoint.x;
+          break;
+      }
+
+      if (isFacingInteractable) {
+
+      }
 
     }
   }
@@ -136,17 +161,17 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
 
     //List of all animations
     animations = {
-      PlayerState.idle : idleAnimation,
-      PlayerState.idleFaceBack : backIdleAnimation,
-      PlayerState.idleFaceFront : frontIdleAnimation,
-      PlayerState.idleFaceLeft : leftIdleAnimation,
-      PlayerState.idleFaceRight : rightIdleAnimation,
-      PlayerState.runningBack : backWalkAnimation,
-      PlayerState.runningFront : frontWalkAnimation,
-      PlayerState.runningLeft : leftWalkAnimation,
-      PlayerState.runningRight : rightWalkAnimation,
+      PlayerAnimationState.idle : idleAnimation,
+      PlayerAnimationState.idleFaceBack : backIdleAnimation,
+      PlayerAnimationState.idleFaceFront : frontIdleAnimation,
+      PlayerAnimationState.idleFaceLeft : leftIdleAnimation,
+      PlayerAnimationState.idleFaceRight : rightIdleAnimation,
+      PlayerAnimationState.runningBack : backWalkAnimation,
+      PlayerAnimationState.runningFront : frontWalkAnimation,
+      PlayerAnimationState.runningLeft : leftWalkAnimation,
+      PlayerAnimationState.runningRight : rightWalkAnimation,
     };
-    current = PlayerState.idle;
+    current = PlayerAnimationState.idle;
   }
 
   ///
@@ -174,71 +199,71 @@ class Player extends SpriteAnimationGroupComponent with HasGameRef<RescueOdyssey
 
     switch (playerDirection) {
       // Checks the current position of player and load correct idle state
-      case PlayerDirection.none:
-        switch(currentPosition){
-          case 'Back':
-            current = PlayerState.idleFaceBack;
+      case PlayerMovementState.none:
+        switch(currentPosition) {
+          case PlayerCardinalDirectionState.north:
+            current = PlayerAnimationState.idleFaceBack;
             break;
-          case 'Front':
-            current = PlayerState.idleFaceFront;
+          case PlayerCardinalDirectionState.south:
+            current = PlayerAnimationState.idleFaceFront;
             break;
-          case 'Left':
-            current = PlayerState.idleFaceLeft;
+          case PlayerCardinalDirectionState.west:
+            current = PlayerAnimationState.idleFaceLeft;
             break;
-          case 'Right':
-            current = PlayerState.idleFaceRight;
+          case PlayerCardinalDirectionState.east:
+            current = PlayerAnimationState.idleFaceRight;
             break;
         }
         break;
-      case PlayerDirection.down:
+      case PlayerMovementState.down:
         // Set current player state
-        current = PlayerState.runningFront;
+        current = PlayerAnimationState.runningFront;
         // Sets current position of player
-        currentPosition = 'Front';
+        currentPosition =  PlayerCardinalDirectionState.south;
         // Add vector Y with the movement speed to change vector Y position upward
         dirY += bottomHitbox.isColliding ? 0 : movementSpeed;
         break;
-      case PlayerDirection.up:
+      case PlayerMovementState.up:
         // Set current player state
-        current = PlayerState.runningBack;
-        currentPosition = 'Back';
+        current = PlayerAnimationState.runningBack;
+        currentPosition =  PlayerCardinalDirectionState.north;
         // Subtract vector Y with the movement speed to change vector Y position downward
         dirY -= topHitbox.isColliding ? 0 : movementSpeed;
         break;
-      case PlayerDirection.left:
-        current = PlayerState.runningLeft;
-        currentPosition = 'Left';
+      case PlayerMovementState.left:
+        current = PlayerAnimationState.runningLeft;
+        currentPosition =  PlayerCardinalDirectionState.west;
         // Similar with process above done with vector Y
         dirX -= leftHitbox.isColliding ? 0 : movementSpeed;
         break;
-      case PlayerDirection.right:
-        current = PlayerState.runningRight;
-        currentPosition = 'Right';
+      case PlayerMovementState.right:
+        current = PlayerAnimationState.runningRight;
+        currentPosition =  PlayerCardinalDirectionState.east;
         dirX += rightHitbox.isColliding ? 0 : movementSpeed;
         break;
-      case PlayerDirection.downLeft:
-        current = PlayerState.runningFront;
-        currentPosition = 'Front';
-        dirX -= leftHitbox.isColliding ? 0 : movementSpeed;
-        dirY += bottomHitbox.isColliding ? 0 : movementSpeed;
+      case PlayerMovementState.downLeft:
+        current = PlayerAnimationState.runningFront;
+        currentPosition =  PlayerCardinalDirectionState.south;
+        dirX -= leftHitbox.isColliding ? 0 : movementSpeed - 30;
+        dirY += bottomHitbox.isColliding ? 0 : movementSpeed - 30;
         break;
-      case PlayerDirection.downRight:
-        current = PlayerState.runningFront;
-        currentPosition = 'Front';
-        dirX += rightHitbox.isColliding ? 0 : movementSpeed;
-        dirY += bottomHitbox.isColliding ? 0 : movementSpeed;
+      case PlayerMovementState.downRight:
+        current = PlayerAnimationState.runningFront;
+        currentPosition =  PlayerCardinalDirectionState.south;
+        dirX += rightHitbox.isColliding ? 0 : movementSpeed - 30;
+        dirY += bottomHitbox.isColliding ? 0 : movementSpeed - 30;
         break;
-      case PlayerDirection.upLeft:
-        current = PlayerState.runningBack;
-        currentPosition = 'Back';
-        dirX -= leftHitbox.isColliding ? 0 : movementSpeed;
-        dirY -= topHitbox.isColliding ? 0 : movementSpeed;
+      case PlayerMovementState.upLeft:
+        current = PlayerAnimationState.runningBack;
+        currentPosition =  PlayerCardinalDirectionState.north;
+        dirX -= leftHitbox.isColliding ? 0 : movementSpeed - 30;
+        dirY -= topHitbox.isColliding ? 0 : movementSpeed - 30;
         break;
-      case PlayerDirection.upRight:
-        current = PlayerState.runningBack;
-        currentPosition = 'Back';
-        dirX += rightHitbox.isColliding ? 0 : movementSpeed;
-        dirY -= topHitbox.isColliding ? 0 : movementSpeed;
+      case PlayerMovementState.upRight:
+        current = PlayerAnimationState.runningBack;
+        currentPosition =  PlayerCardinalDirectionState.north;
+        dirX += rightHitbox.isColliding ? 0 : movementSpeed - 30;
+        dirY -= topHitbox.isColliding ? 0 : movementSpeed - 30;
         break;
       default:
     }
