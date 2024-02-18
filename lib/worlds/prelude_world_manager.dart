@@ -69,6 +69,7 @@ class PreludeWorldManager extends WorldManager {
 
     addCollisions(map, preludeCottageHalls);
     addWarpZones(map, preludeCottageHalls);
+    addInteractables(map, preludeCottageHalls);
   }
 
   Future<void> loadPreludeExtBoardingHouse() async {
@@ -79,6 +80,7 @@ class PreludeWorldManager extends WorldManager {
 
     addCollisions(map, preludeExtBoardingHouse);
     addWarpZones(map, preludeExtBoardingHouse);
+    addInteractables(map, preludeExtBoardingHouse);
   }
 
   Future<void> loadPreludeCrossroads() async {
@@ -89,6 +91,7 @@ class PreludeWorldManager extends WorldManager {
 
     addCollisions(map, preludeCrossroads);
     addWarpZones(map, preludeCrossroads);
+    addInteractables(map, preludeCrossroads);
   }
 
   Future<void> loadPreludeExtLibrary() async {
@@ -99,6 +102,7 @@ class PreludeWorldManager extends WorldManager {
 
     addCollisions(map, preludeExtLibrary);
     addWarpZones(map, preludeExtLibrary);
+    addInteractables(map, preludeExtLibrary);
   }
 
   Future<void> loadPreludeIntLibrary() async {
@@ -109,6 +113,7 @@ class PreludeWorldManager extends WorldManager {
 
     addCollisions(map, preludeIntLibrary);
     addWarpZones(map, preludeIntLibrary);
+    addInteractables(map, preludeIntLibrary);
   }
 
   Future<void> loadPreludeArchiveRoom() async {
@@ -119,6 +124,7 @@ class PreludeWorldManager extends WorldManager {
 
     addCollisions(map, preludeArchiveRoom);
     addWarpZones(map, preludeArchiveRoom);
+    addInteractables(map, preludeArchiveRoom);
   }
 
   Future<void> loadPreludeUnknownDomain() async {
