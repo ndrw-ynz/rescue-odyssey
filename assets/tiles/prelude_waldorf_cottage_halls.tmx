@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="17">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="25">
  <tileset firstgid="1" name="prelude_waldorf_cottage_halls" tilewidth="32" tileheight="32" tilecount="280" columns="20">
   <image source="../images/world_tiles/prelude/prelude_waldorf_cottage_halls.png" width="640" height="448"/>
  </tileset>
@@ -29,7 +29,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup id="4" name="Collision" visible="0">
+ <objectgroup id="4" name="Collision">
   <object id="4" x="-0.5" y="384.5" width="640.833" height="63.8333"/>
   <object id="5" x="0.5" y="0" width="30" height="382.75"/>
   <object id="6" x="578" y="0.666667" width="62" height="380.667"/>
@@ -40,6 +40,38 @@
   <object id="12" x="32" y="0" width="128" height="64"/>
   <object id="13" x="32" y="192" width="448" height="128"/>
   <object id="15" x="480" y="192" width="32" height="96"/>
+ </objectgroup>
+ <objectgroup id="5" name="Interactable">
+  <object id="18" name="Plant" x="192" y="256" width="32" height="64">
+   <properties>
+    <property name="dialogue" value="Cottage_Halls_Plant"/>
+   </properties>
+  </object>
+  <object id="19" name="Parent Door" x="224" y="256" width="64" height="64">
+   <properties>
+    <property name="dialogue" value="Cottage_Halls_Parent_Door"/>
+   </properties>
+  </object>
+  <object id="20" name="Kitchen Door" x="384" y="256" width="64" height="64">
+   <properties>
+    <property name="dialogue" value="Cottage_Halls_Kitchen_Door"/>
+   </properties>
+  </object>
+  <object id="22" name="Bookshelf" x="288" y="256" width="96" height="64">
+   <properties>
+    <property name="dialogue" value="Cottage_Halls_Bookshelf"/>
+   </properties>
+  </object>
+  <object id="23" name="Painting" x="448" y="256" width="32" height="64">
+   <properties>
+    <property name="dialogue" value="Cottage_Halls_Painting"/>
+   </properties>
+  </object>
+  <object id="24" name="Chest" x="128" y="256" width="64" height="64">
+   <properties>
+    <property name="dialogue" value="Cottage_Halls_Chest"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup id="2" name="Spawnpoint">
   <object id="1" name="Player" type="Player" x="64.3636" y="288.182" width="31.0909" height="63.6364"/>
