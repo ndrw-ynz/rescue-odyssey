@@ -60,8 +60,8 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
   @override
   FutureOr<bool> onLineStart(DialogueLine line) async{
     debugPrint("Main Dialogue Component Added");
-    if (line.text == "Text"){
-      await Future.delayed(const Duration(milliseconds: 2000));
+    if (line.text == "My purpose is to load the dialogue box for optimization."){
+      await Future.delayed(const Duration(milliseconds: 1000));
       debugPrint("WAITED 2s");
       onDialogueFinish();
       // onDialogueFinish();
