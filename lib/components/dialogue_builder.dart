@@ -36,6 +36,7 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
 
   @override
   Future<void> onLoad() async {
+    game.canMove = false;
     nextLineButton = ButtonComponent(
         button: PositionComponent(), size: gameRef.size, onPressed: () {
       if (!_dialogueCompleter.isCompleted) {
@@ -111,6 +112,7 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
   FutureOr<void> onDialogueFinish() {
     remove(textBackgroundComponent);
     game.isDialogueFinished = true;
+    game.canMove = true;
     // debugPrint("Done");
     // debugPrint("");
     // debugPrint("isOnDialogue: ${game.isOnDialogue}");

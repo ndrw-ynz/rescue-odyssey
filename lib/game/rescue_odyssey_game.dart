@@ -44,6 +44,8 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
   /// Creates a [DialogueBox] class for later use.
   late DialogueBox dialogueBox ;
 
+  bool canMove = true;
+
   // TODO: maybe add func for changing world based on current enum state of CurrentChapterState
 
   @override
@@ -88,7 +90,7 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
   update(double dt) {
     super.update(dt);
     // Updates character movement using joystick if it is enabled and keyboard controls is disabled
-    if (isUsingJoystick && isDialogueFinished) {
+    if (isUsingJoystick && isDialogueFinished && canMove) {
       if(!camera.viewport.contains(joystick)){
         camera.viewport.add(joystick);
       }
@@ -129,30 +131,32 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
     final left = keysPressed.contains(LogicalKeyboardKey.keyA) || keysPressed.contains(LogicalKeyboardKey.arrowLeft);
     final right = keysPressed.contains(LogicalKeyboardKey.keyD) || keysPressed.contains(LogicalKeyboardKey.arrowRight);
 
-    if (left && down && right) {
-      player.playerDirection = PlayerMovementState.down;
-    } else if (left && up && right) {
-      player.playerDirection = PlayerMovementState.up;
-    } else if ((down && up) || (left && right)) {
-      player.playerDirection = PlayerMovementState.none;
-    }else if(down && left) {
-      player.playerDirection = PlayerMovementState.downLeft;
-    }else if(down && right) {
-      player.playerDirection = PlayerMovementState.downRight;
-    } else if(up && left) {
-      player.playerDirection = PlayerMovementState.upLeft;
-    } else if(up && right) {
-      player.playerDirection = PlayerMovementState.upRight;
-    } else if(down) {
-      player.playerDirection = PlayerMovementState.down;
-    } else if(up) {
-      player.playerDirection = PlayerMovementState.up;
-    } else if(left) {
-      player.playerDirection = PlayerMovementState.left;
-    } else if(right) {
-      player.playerDirection = PlayerMovementState.right;
-    } else {
-      player.playerDirection = PlayerMovementState.none;
+    if(canMove){
+      if (left && down && right) {
+        player.playerDirection = PlayerMovementState.down;
+      } else if (left && up && right) {
+        player.playerDirection = PlayerMovementState.up;
+      } else if ((down && up) || (left && right)) {
+        player.playerDirection = PlayerMovementState.none;
+      }else if(down && left) {
+        player.playerDirection = PlayerMovementState.downLeft;
+      }else if(down && right) {
+        player.playerDirection = PlayerMovementState.downRight;
+      } else if(up && left) {
+        player.playerDirection = PlayerMovementState.upLeft;
+      } else if(up && right) {
+        player.playerDirection = PlayerMovementState.upRight;
+      } else if(down) {
+        player.playerDirection = PlayerMovementState.down;
+      } else if(up) {
+        player.playerDirection = PlayerMovementState.up;
+      } else if(left) {
+        player.playerDirection = PlayerMovementState.left;
+      } else if(right) {
+        player.playerDirection = PlayerMovementState.right;
+      } else {
+        player.playerDirection = PlayerMovementState.none;
+      }
     }
 
     return super.onKeyEvent(event, keysPressed);
