@@ -2,13 +2,18 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/input.dart';
 import 'package:flame/palette.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Route;
 import 'package:flutter/services.dart';
 import 'package:rescue_odyssey/components/dialogue_box.dart';
 
 import 'package:rescue_odyssey/entities/player.dart';
+import 'package:rescue_odyssey/routes/game_screen.dart';
+import 'package:rescue_odyssey/routes/paused_screen.dart';
 import 'package:rescue_odyssey/worlds/prelude_world_manager.dart';
+
+import '../routes/start_up.dart';
 
 /// The [CurrentChapterState] enum contains the available chapters of the game.
 enum CurrentChapterState {
@@ -44,7 +49,12 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
   /// Creates a [DialogueBox] class for later use.
   late DialogueBox dialogueBox ;
 
-  bool canMove = true;
+
+
+
+  bool canMove = false;
+
+  late final RouterComponent router;
 
   // TODO: maybe add func for changing world based on current enum state of CurrentChapterState
 
@@ -55,12 +65,18 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
     dialogueBox = DialogueBox(dialogueProperty: "Starter");
     camera.viewport.add(dialogueBox);
 
+
+    _addRouter();
+    // _addButtons();
+
     // Initialize late final variables.
     player = Player();
     preludeWorldManager = PreludeWorldManager(player: player);
 
     preludeWorldManager.loadWorlds();
     world = preludeWorldManager.getCurrentWorld();
+
+
     // NOTE: ADDING SHOULD BE MADE ON THE SAME FUNCTION BODY TO AVOID CONCURRENCY BS.
     //world.add(player);
 
@@ -88,6 +104,7 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
 
   @override
   update(double dt) {
+
     super.update(dt);
     // Updates character movement using joystick if it is enabled and keyboard controls is disabled
     if (isUsingJoystick && isDialogueFinished && canMove) {
@@ -109,7 +126,10 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
       isWarping = false;
     }
 
+
+
     if(isOnDialogue){
+      player.playerDirection = PlayerMovementState.none;
       dialogueBox = DialogueBox(dialogueProperty: dialogueProperty);
       if(!camera.viewport.contains(dialogueBox)) {
         camera.viewport.add(dialogueBox);
@@ -213,4 +233,16 @@ class RescueOdysseyGame extends FlameGame with HasCollisionDetection, KeyboardEv
         break;
     }
   }
+
+  void _addRouter() {
+    router = RouterComponent(initialRoute: 'start',
+        routes: {
+      'start' : Route(StartUpPage.new),
+          'game' : Route(GameScreen.new),
+          'paused' : Route(PausedScreen.new),
+    });
+    camera.viewport.add(router);
+  }
+
+
 }
