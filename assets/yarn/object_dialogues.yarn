@@ -1,4 +1,8 @@
 <<character Patch>>
+<<character Arturo>>
+<<character Tayso>>
+<<character ???>>
+<<character Engkanto>>
 
 title: Starter
 ---
@@ -89,5 +93,84 @@ title: Boardinghouse_Flower_Bed2
 A collection of your mother's favorite flowers.
 ===
 
+title: Int_library_Unique_Bookshelf_1
+---
+The genre of this bookshelf is fantasy.
+You see one of your favorite books.
+Arturo: A complete collection of the Lord of the Rings series?!
+Arturo: I can't wait to reread this again soon.
+===
 
+title: Int_library_Unique_Bookshelf_2
+---
+The genre of this bookshelf is action.
+You see a lot of familiar titles that you've seen as movies.
+Arturo: Ohhh, Hunger Games. Mom would love to read this.
+===
 
+title: Int_library_Unique_Bookshelf_3
+---
+This bookshelf contains books with board games.
+Tayso: Don't think of trying to bring those home kid.
+===
+
+title: Int_library_Unique_Bookshelf_4
+---
+This bookshelf contains graphic novels.
+A book caught your eye. It's title is "Solo Leveling"
+Arturo: Isn't this the one people are going crazy right now?
+Arturo: It does look awesome though.
+===
+
+title: Int_library_Bookshelf_1
+---
+This bookshelf contains science-related books.
+Nothing caught your attention.
+===
+
+title: Int_library_Bookshelf_2
+---
+This bookshelf contains literature books.
+Nothing interest you.
+===
+
+title: Int_library_Bookshelf_3
+---
+The genre of this bookshelf is history fiction.
+It's mostly books regarding WW1, WW2, and the Roman empire.
+Sadly you don't have the moment to think about the Roman empire right now.
+===
+
+title: Int_library_Bookshelf_4
+---
+This bookshelf contains research papers.
+You don't understand anything what they wrote.
+===
+
+Int_Library_Archive_Room_Podium
+---
+You see an old magnificent podium.
+Details that are a sight to behold.
+On top of it contains the book you are looking for.
+Arturo: WOWWW! What cool way to display a book. Mr. Tayso really outdid himself.
+Arturo: I got to bring this to Mr. Tayso immediately so I can read this.
+As you touch the book, your surroundings begins to shake.
+And you were absorb by the book.
+===
+
+Ext_Unknown_Domain_???
+---
+???: You’ve come, child.
+Arturo: Who are you? What's happening? Why am I an eagle? How did I came here? Get me out of here, please!!!
+???: One at a time child. I can’t answer everything at once.
+???: You can treat me as an Engkanto, a mythological creature you may or may not know. I possess items with magical powers and you, child, interacted with one of those said items.
+Arturo: Do you mean this book right here?
+Engkanto: Yes. The book heard the cries of nearby poor and desperate species and it took you in.
+Arturo: Why me? I'm just a normal person.
+Engkanto: The book was drawn to you due to your righteousness and kindness towards animals and it transformed you into the majestic protector of the forest, the eagle.
+Arturo: Thanks, but I need to go back to where I am. My mother and Mr. Tayso will be worried that I’m gone.
+Engkanto: Sigh… As you wish child but you must first help these desperate animals so the book will bring you back.
+Arturo: Alright. I can’t really turn a blind eye to animals that are in need.
+Engkanto: Great! Open the book so you can see which animals that need help. And also, you may be able to understand animals now. Good luck to you and may your ever-righteous heart prevail in helping the weak and the exploited.
+Arturo: Thanks, Engkanto.
+===

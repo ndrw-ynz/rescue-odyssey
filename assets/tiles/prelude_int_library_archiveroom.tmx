@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="12" height="17" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="20">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="12" height="17" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="25">
  <tileset firstgid="1" name="prelude-map-library-archive-room" tilewidth="32" tileheight="32" tilecount="340" columns="20">
   <image source="../images/world_tiles/prelude/prelude-map-library-archive-room.png" width="640" height="544"/>
  </tileset>
@@ -43,5 +43,16 @@
   <object id="15" x="345" y="193.667" width="38.3333" height="220.667"/>
   <object id="16" x="-1" y="192.333" width="39.6667" height="223"/>
   <object id="17" x="0" y="416" width="32" height="128"/>
+  <object id="20" x="96" y="224" width="64" height="167.75"/>
+  <object id="21" x="224" y="224" width="64" height="167"/>
+  <object id="22" x="39" y="192.333" width="111.667" height="17"/>
+  <object id="23" x="234.333" y="193" width="109.333" height="17"/>
+ </objectgroup>
+ <objectgroup id="4" name="Interactable">
+  <object id="24" x="164.667" y="192" width="51.6667" height="17">
+   <properties>
+    <property name="dialogue" value="Int_Library_Archive_Room_Podium"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="26">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="27">
  <tileset firstgid="1" name="prelude_waldorf_woodenboardingcottage" tilewidth="32" tileheight="32" tilecount="100" columns="10">
   <image source="../images/world_tiles/prelude/prelude_waldorf_woodenboardingcottage.png" width="320" height="320"/>
  </tileset>
@@ -28,7 +28,7 @@
   <object id="13" name="Collision" type="Collision" x="31.5918" y="64" width="256.016" height="31.1815"/>
   <object id="25" name="Collision" x="224" y="96" width="63" height="63"/>
  </objectgroup>
- <objectgroup id="6" name="Interactable" visible="0">
+ <objectgroup id="6" name="Interactable">
   <object id="21" name="Books" x="32" y="192" width="32" height="64">
    <properties>
     <property name="dialogue" value="Wooden_Boarding_Cottage_Books"/>
