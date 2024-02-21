@@ -110,7 +110,7 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
 
   @override
   FutureOr<void> onDialogueFinish() {
-    remove(textBackgroundComponent);
+    removeAll([textBackgroundComponent,nextLineButton]);
     game.isDialogueFinished = true;
     game.canMove = true;
     // debugPrint("Done");
@@ -144,7 +144,7 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
   /// Additionally, creates the dialogue text component to be added to the background parent class.
   void _initDialogue()  async{
     final largeWoodenBox = await Flame.images.load('dialogue_box/wooden_box.png');
-    textBackgroundComponent = SpriteComponent.fromImage(largeWoodenBox, position: Vector2(gameRef.size.x * .001, gameRef.size.y * .75), size: Vector2(gameRef.size.x, 150));
+    textBackgroundComponent = SpriteComponent.fromImage(largeWoodenBox, position: Vector2(gameRef.size.x * .001, gameRef.size.y * .6), size: Vector2(gameRef.size.x, 150));
     add(textBackgroundComponent);
 
     dialogueTextComponent = TextBoxComponent(textRenderer: dialoguePaint, text: '', position: Vector2(textBackgroundComponent.size.x * .09,20), boxConfig: TextBoxConfig(maxWidth: gameRef.size.x * .8, timePerChar: 0.01));
