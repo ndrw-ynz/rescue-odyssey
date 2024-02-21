@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="25">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="20" height="14" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="28">
  <tileset firstgid="1" name="prelude_waldorf_cottage_halls" tilewidth="32" tileheight="32" tilecount="280" columns="20">
   <image source="../images/world_tiles/prelude/prelude_waldorf_cottage_halls.png" width="640" height="448"/>
  </tileset>
@@ -21,11 +21,11 @@
     <property name="targetY" type="int" value="260"/>
    </properties>
   </object>
-  <object id="16" name="Warp Zone" type="Warp Zone" x="106" y="115.333" width="44.6667" height="9.33333">
+  <object id="16" name="Warp Zone" type="Warp Zone" x="106.5" y="62.333" width="44.6667" height="9.33333">
    <properties>
     <property name="targetWorld" value="prelude_ext_boardinghouse"/>
     <property name="targetX" type="int" value="658"/>
-    <property name="targetY" type="int" value="235"/>
+    <property name="targetY" type="int" value="270"/>
    </properties>
   </object>
  </objectgroup>
@@ -37,9 +37,11 @@
    <polygon points="0,0 30.6667,-59 62.3333,-60.3333 62.3333,-156.333 -1.66667,-156.333"/>
   </object>
   <object id="11" x="160" y="0" width="416" height="128"/>
-  <object id="12" x="32" y="0" width="128" height="64"/>
+  <object id="12" x="32" y="0" width="128" height="33"/>
   <object id="13" x="32" y="192" width="448" height="128"/>
   <object id="15" x="480" y="192" width="32" height="96"/>
+  <object id="25" x="480.5" y="288.75" width="24.5" height="9.25"/>
+  <object id="26" x="480.25" y="297.5" width="14.25" height="16.75"/>
  </objectgroup>
  <objectgroup id="5" name="Interactable">
   <object id="18" name="Plant" x="192" y="256" width="32" height="64">

@@ -79,7 +79,7 @@
   </object>
   <object id="72" x="351.667" y="450" width="255.333" height="55">
    <properties>
-    <property name="dialogue" value="Int_library_Bookshelf_4"/>
+    <property name="dialogue" value="Int_library_Bookshelf_3"/>
    </properties>
   </object>
   <object id="73" x="348.833" y="540.833" width="64" height="54.3333">
@@ -89,12 +89,12 @@
   </object>
   <object id="74" x="416.333" y="540.667" width="191" height="54">
    <properties>
-    <property name="dialogue" value="Int_library_Bookshelf_5"/>
+    <property name="dialogue" value="Int_library_Bookshelf_4"/>
    </properties>
   </object>
   <object id="76" x="350.333" y="632.667" width="256.333" height="53.6667">
    <properties>
-    <property name="dialogue" value="Int_library_Bookshelf_6"/>
+    <property name="dialogue" value="Int_library_Bookshelf_5"/>
    </properties>
   </object>
   <object id="83" x="284" y="223.75" width="4" height="129.25"/>

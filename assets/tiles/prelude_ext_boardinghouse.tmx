@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="28" height="18" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="63">
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="28" height="18" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="64">
  <tileset firstgid="1" name="prelude_waldorf_schoolgrounds" tilewidth="32" tileheight="32" tilecount="270" columns="18">
   <image source="../images/world_tiles/prelude/prelude_waldorf_schoolgrounds.png" width="576" height="480"/>
  </tileset>
@@ -126,7 +126,7 @@
   </object>
  </objectgroup>
  <objectgroup id="7" name="Warp Zone">
-  <object id="36" name="Warp Zone" type="Warp Zone" x="647.833" y="244" width="48.375" height="11.8333">
+  <object id="36" name="Warp Zone" type="Warp Zone" x="647.708" y="251.313" width="48.375" height="11.8333">
    <properties>
     <property name="targetWorld" value="prelude_waldorf_cottage_halls"/>
     <property name="targetX" type="int" value="115"/>

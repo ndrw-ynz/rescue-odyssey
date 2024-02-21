@@ -1,7 +1,7 @@
 <<character Patch>>
 <<character Arturo>>
 <<character Tayso>>
-<<character ???>>
+<<character Unknown>>
 <<character Engkanto>>
 
 title: Starter
@@ -147,7 +147,13 @@ This bookshelf contains research papers.
 You don't understand anything what they wrote.
 ===
 
-Int_Library_Archive_Room_Podium
+title: Int_library_Bookshelf_5
+---
+This bookshelf contains biographies and autobiographies.
+Some of books here are the same back at home.
+===
+
+title: Int_Library_Archive_Room_Podium
 ---
 You see an old magnificent podium.
 Details that are a sight to behold.
@@ -158,12 +164,12 @@ As you touch the book, your surroundings begins to shake.
 And you were absorb by the book.
 ===
 
-Ext_Unknown_Domain_???
+title: Ext_Unknown_Domain_???
 ---
-???: You’ve come, child.
+Unknown: You’ve come, child.
 Arturo: Who are you? What's happening? Why am I an eagle? How did I came here? Get me out of here, please!!!
-???: One at a time child. I can’t answer everything at once.
-???: You can treat me as an Engkanto, a mythological creature you may or may not know. I possess items with magical powers and you, child, interacted with one of those said items.
+Unknown: One at a time child. I can’t answer everything at once.
+Unknown: You can treat me as an Engkanto, a mythological creature you may or may not know. I possess items with magical powers and you, child, interacted with one of those said items.
 Arturo: Do you mean this book right here?
 Engkanto: Yes. The book heard the cries of nearby poor and desperate species and it took you in.
 Arturo: Why me? I'm just a normal person.
