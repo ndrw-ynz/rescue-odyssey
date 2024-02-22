@@ -8,6 +8,8 @@ import '../game/rescue_odyssey_game.dart';
 
 /// Builds the dialogue's lines, text box, design, and tappable button progression for [DialogueBox].
 class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<RescueOdysseyGame> {
+
+  DialogueBuilder() : super(priority: 10);
   /// Invisible and tappable button on screen for next dialogue line.
   late final ButtonComponent nextLineButton;
   /// The parent class for all text/non-text components.
@@ -63,7 +65,9 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
     if (line.text == "My purpose is to load the dialogue box for optimization."){
       await Future.delayed(const Duration(milliseconds: 1000));
       debugPrint("WAITED 2s");
-      onDialogueFinish();
+      removeAll([textBackgroundComponent,nextLineButton]);
+      game.isDialogueFinished = true;
+      game.canMove = false;
       // onDialogueFinish();
     }
 
