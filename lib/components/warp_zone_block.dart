@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
+import 'package:flutter/material.dart';
 
 import 'package:rescue_odyssey/entities/player.dart';
 import 'package:rescue_odyssey/game/rescue_odyssey_game.dart';
@@ -46,7 +47,9 @@ class WarpZoneBlock extends PositionComponent with CollisionCallbacks, HasGameRe
     if (other is Player) {
       game.isWarping = true;
       game.preludeWorldManager.currentWorldState = warpTargetWorld;
-      game.player.position = warpTargetPoint;
+      game.warpTargetPoint = warpTargetPoint;
+      debugPrint(warpTargetPoint.toString());
+
     }
   }
 }
