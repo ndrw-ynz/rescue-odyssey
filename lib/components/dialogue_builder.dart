@@ -8,6 +8,8 @@ import '../game/rescue_odyssey_game.dart';
 
 /// Builds the dialogue's lines, text box, design, and tappable button progression for [DialogueBox].
 class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<RescueOdysseyGame> {
+
+  DialogueBuilder() : super(priority: 10);
   /// Invisible and tappable button on screen for next dialogue line.
   late final ButtonComponent nextLineButton;
   /// The parent class for all text/non-text components.
@@ -36,6 +38,7 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
 
   @override
   Future<void> onLoad() async {
+    game.canMove = false;
     nextLineButton = ButtonComponent(
         button: PositionComponent(), size: gameRef.size, onPressed: () {
       if (!_dialogueCompleter.isCompleted) {
@@ -59,10 +62,12 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
   @override
   FutureOr<bool> onLineStart(DialogueLine line) async{
     debugPrint("Main Dialogue Component Added");
-    if (line.text == "Text"){
-      await Future.delayed(const Duration(milliseconds: 2000));
+    if (line.text == "My purpose is to load the dialogue box for optimization."){
+      await Future.delayed(const Duration(milliseconds: 1000));
       debugPrint("WAITED 2s");
-      onDialogueFinish();
+      removeAll([textBackgroundComponent,nextLineButton]);
+      game.isDialogueFinished = true;
+      game.canMove = false;
       // onDialogueFinish();
     }
 
@@ -109,8 +114,9 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
 
   @override
   FutureOr<void> onDialogueFinish() {
-    remove(textBackgroundComponent);
+    removeAll([textBackgroundComponent,nextLineButton]);
     game.isDialogueFinished = true;
+    game.canMove = true;
     // debugPrint("Done");
     // debugPrint("");
     // debugPrint("isOnDialogue: ${game.isOnDialogue}");
@@ -142,7 +148,7 @@ class DialogueBuilder extends PositionComponent with DialogueView, HasGameRef<Re
   /// Additionally, creates the dialogue text component to be added to the background parent class.
   void _initDialogue()  async{
     final largeWoodenBox = await Flame.images.load('dialogue_box/wooden_box.png');
-    textBackgroundComponent = SpriteComponent.fromImage(largeWoodenBox, position: Vector2(gameRef.size.x * .001, gameRef.size.y * .75), size: Vector2(gameRef.size.x, 150));
+    textBackgroundComponent = SpriteComponent.fromImage(largeWoodenBox, position: Vector2(gameRef.size.x * .001, gameRef.size.y * .6), size: Vector2(gameRef.size.x, 150));
     add(textBackgroundComponent);
 
     dialogueTextComponent = TextBoxComponent(textRenderer: dialoguePaint, text: '', position: Vector2(textBackgroundComponent.size.x * .09,20), boxConfig: TextBoxConfig(maxWidth: gameRef.size.x * .8, timePerChar: 0.01));

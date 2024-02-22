@@ -5,7 +5,13 @@ import 'package:rescue_odyssey/worlds/world_manager.dart';
 /// The [PreludeWorldState] enum contains the state of world of the prelude.
 enum PreludeWorldState {
   woodenBoardingCottage,
-  cottageHalls
+  cottageHalls,
+  extBoardingHouse,
+  crossroads,
+  extLibrary,
+  intLibrary,
+  archiveRoom,
+  unknownDomain
 }
 
 ///
@@ -15,6 +21,12 @@ enum PreludeWorldState {
 class PreludeWorldManager extends WorldManager {
   late World preludeWoodenBoardingCottage;
   late World preludeCottageHalls;
+  late World preludeExtBoardingHouse;
+  late World preludeCrossroads;
+  late World preludeExtLibrary;
+  late World preludeIntLibrary;
+  late World preludeArchiveRoom;
+  late World preludeUnknownDomain;
 
   /// The current state of the world of prelude.
   late PreludeWorldState currentWorldState;
@@ -29,6 +41,12 @@ class PreludeWorldManager extends WorldManager {
   void loadWorlds() {
     loadPreludeWoodenBoardingCottage();
     loadPreludeCottageHalls();
+    loadPreludeExtBoardingHouse();
+    loadPreludeCrossroads();
+    loadPreludeExtLibrary();
+    loadPreludeIntLibrary();
+    loadPreludeArchiveRoom();
+    loadPreludeUnknownDomain();
   }
 
   Future<void> loadPreludeWoodenBoardingCottage() async {
@@ -51,6 +69,72 @@ class PreludeWorldManager extends WorldManager {
 
     addCollisions(map, preludeCottageHalls);
     addWarpZones(map, preludeCottageHalls);
+    addInteractables(map, preludeCottageHalls);
+  }
+
+  Future<void> loadPreludeExtBoardingHouse() async {
+    preludeExtBoardingHouse = World();
+    TiledComponent map = await TiledComponent.load('prelude_ext_boardinghouse.tmx', Vector2.all(32));
+
+    preludeExtBoardingHouse.add(map);
+
+    addCollisions(map, preludeExtBoardingHouse);
+    addWarpZones(map, preludeExtBoardingHouse);
+    addInteractables(map, preludeExtBoardingHouse);
+  }
+
+  Future<void> loadPreludeCrossroads() async {
+    preludeCrossroads = World();
+    TiledComponent map = await TiledComponent.load('prelude_ext_crossroads.tmx', Vector2.all(32));
+
+    preludeCrossroads.add(map);
+
+    addCollisions(map, preludeCrossroads);
+    addWarpZones(map, preludeCrossroads);
+    addInteractables(map, preludeCrossroads);
+  }
+
+  Future<void> loadPreludeExtLibrary() async {
+    preludeExtLibrary = World();
+    TiledComponent map = await TiledComponent.load('prelude_ext_library.tmx', Vector2.all(32));
+
+    preludeExtLibrary.add(map);
+
+    addCollisions(map, preludeExtLibrary);
+    addWarpZones(map, preludeExtLibrary);
+    addInteractables(map, preludeExtLibrary);
+  }
+
+  Future<void> loadPreludeIntLibrary() async {
+    preludeIntLibrary = World();
+    TiledComponent map = await TiledComponent.load('prelude_int_library.tmx', Vector2.all(32));
+
+    preludeIntLibrary.add(map);
+
+    addCollisions(map, preludeIntLibrary);
+    addWarpZones(map, preludeIntLibrary);
+    addInteractables(map, preludeIntLibrary);
+  }
+
+  Future<void> loadPreludeArchiveRoom() async {
+    preludeArchiveRoom = World();
+    TiledComponent map = await TiledComponent.load('prelude_int_library_archiveroom.tmx', Vector2.all(32));
+
+    preludeArchiveRoom.add(map);
+
+    addCollisions(map, preludeArchiveRoom);
+    addWarpZones(map, preludeArchiveRoom);
+    addInteractables(map, preludeArchiveRoom);
+  }
+
+  Future<void> loadPreludeUnknownDomain() async {
+    preludeUnknownDomain = World();
+    TiledComponent map = await TiledComponent.load('prelude_ext_unknowndomain.tmx', Vector2.all(32));
+
+    preludeUnknownDomain.add(map);
+
+    addCollisions(map, preludeUnknownDomain);
+    // addWarpZones(map, preludeUnknownDomain);
   }
 
   @override
@@ -59,6 +143,12 @@ class PreludeWorldManager extends WorldManager {
     switch (currentWorldState) {
       case PreludeWorldState.woodenBoardingCottage: currentWorld = preludeWoodenBoardingCottage;
       case PreludeWorldState.cottageHalls: currentWorld = preludeCottageHalls;
+      case PreludeWorldState.extBoardingHouse: currentWorld = preludeExtBoardingHouse;
+      case PreludeWorldState.crossroads: currentWorld = preludeCrossroads;
+      case PreludeWorldState.extLibrary: currentWorld = preludeExtLibrary;
+      case PreludeWorldState.intLibrary: currentWorld = preludeIntLibrary;
+      case PreludeWorldState.archiveRoom: currentWorld = preludeArchiveRoom;
+      case PreludeWorldState.unknownDomain: currentWorld = preludeUnknownDomain;
     }
     return currentWorld;
   }
