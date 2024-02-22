@@ -1,25 +1,36 @@
 import 'dart:async';
 
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:rescue_odyssey/game/rescue_odyssey_game.dart';
 
 class PausedScreen extends Component with HasGameRef<RescueOdysseyGame>{
 
+  /// The transparent black background of the pause screen.
   late RectangleComponent transparentBackground;
-  
+  /// The text that shows PAUSED in the middle of the screen.
   late TextBoxComponent pausedText;
-  
+
+  /// The resume button to start the game.
+  late ButtonComponent resume;
+  /// The save button to start the game.
+  late ButtonComponent save;
+  /// The quit to main menu button to start the game.
+  late ButtonComponent quitToMainMenu;
+
+  /// Box design for the resume button.
   late RectangleComponent resumeBox;
+  /// Box design for the save button.
   late RectangleComponent saveBox;
+  /// Box design for the quit button.
   late RectangleComponent quitBox;
 
-  late ButtonComponent resume;
-  late ButtonComponent save;
-  late ButtonComponent quitToMainMenu;
-  int spacing = 100;
+  /// Vertical spacing of each button.
+  int verticalSpacing = 100;
 
+  /// Text renderer to design text.
   final textRenderer = TextPaint(style: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.white, decorationColor: Colors.yellow));
 
   @override
@@ -30,8 +41,6 @@ class PausedScreen extends Component with HasGameRef<RescueOdysseyGame>{
 
 
   void _addPauseOverlays() {
-    game.canMove = false;
-
     transparentBackground = RectangleComponent(
       size: gameRef.size,
       paint: Paint()..color = const Color(0xAA000000),
@@ -46,25 +55,25 @@ class PausedScreen extends Component with HasGameRef<RescueOdysseyGame>{
     );
 
     resumeBox = RectangleComponent(
-      position: Vector2(pausedText.x + (pausedText.x * 0.13), pausedText.y + spacing + 30),
+      position: Vector2(pausedText.x + (pausedText.x * 0.13), pausedText.y + verticalSpacing + 30),
       size: Vector2(215, 56),
       paint: Paint()..color = const Color(0xFF000000),
     );
 
     saveBox = RectangleComponent(
-      position: Vector2(pausedText.x + (pausedText.x * 0.13), resumeBox.y + spacing),
+      position: Vector2(pausedText.x + (pausedText.x * 0.13), resumeBox.y + verticalSpacing),
       size: Vector2(215, 56),
       paint: Paint()..color = const Color(0xFF000000),
     );
 
     quitBox = RectangleComponent(
-      position: Vector2(pausedText.x + (pausedText.x * 0.13), saveBox.y + spacing),
+      position: Vector2(pausedText.x + (pausedText.x * 0.13), saveBox.y + verticalSpacing),
       size: Vector2(215, 56),
       paint: Paint()..color = const Color(0xFF000000),
     );
 
     resume = ButtonComponent(
-      // position: Vector2(pausedText.x + (pausedText.x * 0.13), pausedText.y + spacing + 30),
+      // position: Vector2(pausedText.x + (pausedText.x * 0.13), pausedText.y + verticalSpacing + 30),
         button: TextBoxComponent(
             textRenderer: textRenderer,
             text: 'Resume',
@@ -91,7 +100,13 @@ class PausedScreen extends Component with HasGameRef<RescueOdysseyGame>{
             text: 'Quit',
             align: Anchor.center),
         onPressed: (){
-          gameRef.router.pushNamed('start');
+          game.transition.add(OpacityEffect.fadeIn(LinearEffectController(1.5)));
+
+          Future.delayed(const Duration(milliseconds: 1500), ()
+          {
+            gameRef.router.pushNamed('start');
+            game.transition.add(OpacityEffect.fadeOut(LinearEffectController(0.1)));
+          });
         }
     );
 
